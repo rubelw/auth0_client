@@ -1,4 +1,0 @@
-
-        [console_scripts]
-        auth-client=auth0_client.command:cli
-    
