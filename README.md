@@ -1,5 +1,5 @@
 Auth0 Client
-==================
+============
 Features
 ========
 python click program for auth0
@@ -36,7 +36,7 @@ Getting help
       list-users
 
 Example Ini file
-
+================
 .. code:: console
 
     [parameters]
