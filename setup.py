@@ -41,7 +41,8 @@ setup(
         "configparser>=3.5.0",
         "future>=0.16.0",
         "six>=1.11.0",
-        "pip"
+        "pip",
+        "auth0-python"
     ],
     keywords=['auth0', 'client'],
     classifiers=[
