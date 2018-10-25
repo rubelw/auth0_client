@@ -11,12 +11,18 @@ def email_templates():
 email_templates.help = highlight(email_templates.help, ['Create:', 'Delete:', 'Update:'], 'green')
 
 @email_templates.command()
-def get_an_email_template():
-    print('not configured yet')
+@click.option('--ini', '-i', help='INI file with needed information', required=True)
+@click.option('--template-name', '-t', help='template name', required=True)
+@click.option('--debug', help='Turn on debugging', required=False, is_flag=True)
+def get_an_email_template(
+        ini,
+        template_name,
+        debug
+    ):
 
-@email_templates.command()
-def patch_an_email_template():
-    print('not configured yet')
+    client = Auth0Client(get_config_dict(ini, debug))
+    print(client.get_an_email_template(name=template_name))
+
 
 @email_templates.command()
 @click.option('--ini', '-i', help='INI file with needed information', required=True)

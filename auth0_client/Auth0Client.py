@@ -22,6 +22,8 @@ from auth0.v3.management import Grants
 from auth0.v3.management import DeviceCredentials
 from auth0.v3.management import CustomDomains
 from auth0.v3.management import EmailTemplates
+from auth0.v3.management import Jobs
+
 from auth0_client.cli_util import (pretty)
 
 
@@ -55,7 +57,6 @@ class Auth0Client:
 
         if 'debug' in self._config:
             self.debug = self._config['debug']
-        print('debug: '+str(self.debug))
 
         if 'domain' in self._config:
             self.domain = self._config['domain']
@@ -94,6 +95,15 @@ class Auth0Client:
         blacklists = Blacklists(self.domain, self.token)
 
         return pretty(blacklists.get())
+
+    def blacklist_a_token(self, body):
+        if self.debug:
+            print('command - blacklist a token'+lineno())
+
+
+        blacklists = Blacklists(self.domain, self.token)
+
+        return pretty(blacklists.create())
 
 
     ##################
@@ -166,7 +176,7 @@ class Auth0Client:
             for client in results:
                 client_data.append(client)
 
-        return pretty(client_data)
+        return client_data
 
     def get_a_client_application(self, id, fields, include_fields):
         if self.debug:
@@ -341,6 +351,16 @@ class Auth0Client:
 
         return pretty(template.update(template_name=name, body=body))
 
+
+
+    def get_an_email_template(self, name):
+        if self.debug:
+            print('command - get_an_email_template'+lineno())
+
+        template = EmailTemplates(self.domain, self.token)
+
+        return pretty(template.get(template_name=name))
+
     ##################
     # Emails
     ##################
@@ -402,6 +422,15 @@ class Auth0Client:
     # Guardian
     ##################
 
+    def delete_a_guardian_enrollment(self, id):
+        if self.debug:
+            print('command - delete_a_guardian_enrollment'+lineno())
+
+        guardian = Guardian(self.domain, self.token)
+
+        return pretty(guardian.delete_enrollment(id=id))
+
+
     def list_factors(self):
         if self.debug:
             print('command - list_factors'+lineno())
@@ -434,10 +463,79 @@ class Auth0Client:
         return pretty(guardian.get_factor_providers(factor_name='sms', name='twilio'))
 
 
+    def update_enrollment_and_verification_templates(self, body):
+        if self.debug:
+            print('command - update_enrollment_and_verification_template'+lineno())
+
+        guardian = Guardian(self.domain, self.token)
+        return pretty(guardian.update_templates(body=body))
+
+    def update_guardians_twilio_sms_factor_provider(self, body):
+        if self.debug:
+            print('command - update_guardians_twilio_sms_factor_provider'+lineno())
+
+        guardian = Guardian(self.domain, self.token)
+        return pretty(guardian.update_factor_providers(factor_name='sms', name='twilio', body=body))
+
+    def create_a_guardian_enrollment_ticket(self, body):
+        if self.debug:
+            print('command - create_a_guardian_enrollment_ticket'+lineno())
+
+        guardian = Guardian(self.domain, self.token)
+        return pretty(guardian.create_enrollment_ticket(body=body))
+
+    def update_guardian_factor(self, name, body):
+        if self.debug:
+            print('command - update_guardian_factor'+lineno())
+
+        guardian = Guardian(self.domain, self.token)
+        return pretty(guardian.update_factor_providers(body=body))
 
     ##################
     # Jobs
     ##################
+
+    def get_a_job(self, id):
+        if self.debug:
+            print('command - get_a_job'+lineno())
+
+        jobs = Jobs(self.domain, self.token)
+        return pretty(jobs.get(id=id))
+
+    def get_failed_job_error_details(self, id):
+        if self.debug:
+            print('command - get_failed_job_error_details'+lineno())
+
+        jobs = Jobs(self.domain, self.token)
+        return pretty(jobs.get_failed_job(id=id))
+
+    def get_results_of_a_job(self, id):
+        if self.debug:
+            print('command - get_results_of_a_job'+lineno())
+
+        jobs = Jobs(self.domain, self.token)
+        return pretty(jobs.get_job_results(id=id))
+
+    def create_job_to_export_users(self, body):
+        if self.debug:
+            print('command - create_job_to_export_users'+lineno())
+
+        jobs = Jobs(self.domain, self.token)
+        return pretty(jobs.export_users(id=id))
+
+    def create_job_to_import_users(self, connection_id, upsert, file_obj):
+        if self.debug:
+            print('command - create_job_to_import_users'+lineno())
+
+        jobs = Jobs(self.domain, self.token)
+        return pretty(jobs.import_users(connection_id=connection_id,file_obj=file_obj,upsert=upsert))
+
+    def send_a_verify_email_address_email(self, body):
+        if self.debug:
+            print('command - send_a_verify_email_address_email'+lineno())
+
+        jobs = Jobs(self.domain, self.token)
+        return pretty(jobs.send_verification_email(body=body))
 
     ##################
     # Logs
@@ -558,6 +656,25 @@ class Auth0Client:
         users = Users(self.domain, self.token)
         pages = math.ceil(users.list(per_page=0, search_engine='v3')['total'] / users_per_page)
 
+        total_users = int(pages)*int(users_per_page)
+        acceptable_number_of_pages = math.ceil(1000 / int(users_per_page))
+
+
+        if self.debug:
+            print('number of pages: '+str(pages))
+            print('total_users: '+str(total_users))
+            print('acceptable number of pages: '+str(acceptable_number_of_pages))
+
+        if pages > acceptable_number_of_pages:
+            pages = acceptable_number_of_pages -1
+
+            print("\n##############################")
+            print('Limited to a 1000 users by the api')
+            print("#################################\n")
+
+
+        if self.debug:
+            pages=1
 
         for page in range(pages):
             results = users.list(search_engine='v3',page=page, per_page=users_per_page)
@@ -569,7 +686,7 @@ class Auth0Client:
         return pretty(user_data)
 
 
-    def get_list_of_guardian_enrollments(self, user_id=id):
+    def get_list_of_guardian_enrollments(self, user_id):
         if self.debug:
             print('command - get_list_of_guardian_enrollments'+lineno())
 
@@ -580,7 +697,7 @@ class Auth0Client:
         return pretty(results)
 
 
-    def generate_new_user_guardian_recovery_code(self, user_id=id):
+    def generate_new_user_guardian_recovery_code(self, user_id):
         if self.debug:
             print('command - generate_new_user_guardian_recovery_code'+lineno())
 
@@ -590,19 +707,100 @@ class Auth0Client:
     def get_user_log_events(self, user_id):
         if self.debug:
             print('command - get_user_log_events'+lineno())
+            print('user_id: '+str(user_id))
 
         log_data = []
         logs_per_page = 10
         users = Users(self.domain, self.token)
         pages = math.ceil(len(users.get_log_events(user_id=user_id, per_page=0)) / logs_per_page)
         for page in range(pages):
-            results = users.list(user_id=user_id,page=page, per_page=logs_per_page)
+            results = users.get_log_events(user_id=user_id,page=page, per_page=logs_per_page)
 
 
             for log in results:
                 log_data.append(log)
 
         return pretty(log_data)
+
+
+    def delete_user(self, user_id):
+        if self.debug:
+            print('command - delete'+lineno())
+
+        users = Users(self.domain, self.token)
+
+        results = users.delete(id=user_id)
+
+        return pretty(results)
+
+
+    def delete_a_users_multifactor_provider(self, user_id, provider):
+        if self.debug:
+            print('command - delete user multifactor provider'+lineno())
+
+        users = Users(self.domain, self.token)
+
+        results = users.delete_multifactor(id=user_id, provider=provider)
+
+        return pretty(results)
+
+
+
+    def create_user(self, body):
+        if self.debug:
+            print('command - create'+lineno())
+
+        users = Users(self.domain, self.token)
+
+        body = json.loads(body)
+
+        # See if the connection is valid
+        connection_ids = []
+        connections = json.loads(self.get_all_connections())
+        for conn in connections:
+            print('conn: '+str(conn))
+            if 'name' in conn:
+                print('found name')
+                connection_ids.append(conn['name'])
+
+
+        if 'connection' in body and body['connection'] not in connection_ids:
+            print('The connection id should be : '+str(pretty(connection_ids)))
+            sys.exit(1)
+
+
+        results = users.create(body=body)
+
+        return pretty(results)
+
+
+    def update_user(self, id, body):
+        if self.debug:
+            print('command - update user'+lineno())
+
+        users = Users(self.domain, self.token)
+
+        body = json.loads(body)
+
+        # See if the connection is valid
+        connection_ids = []
+        connections = json.loads(self.get_all_connections())
+        for conn in connections:
+            print('conn: '+str(conn))
+            if 'name' in conn:
+                print('found name')
+                connection_ids.append(conn['name'])
+
+
+        if 'connection' in body and body['connection'] not in connection_ids:
+            print('The connection id should be : '+str(pretty(connection_ids)))
+            sys.exit(1)
+
+
+        results = users.update(id=id, body=body)
+
+        return pretty(results)
+
 
     ##################
     # UserBlocks

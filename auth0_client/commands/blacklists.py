@@ -22,5 +22,20 @@ def get_all_blacklisted_tokens(
 
 
 @blacklists.command()
-def blacklist_a_token():
-    print('not configured yet')
+@click.option('--ini', '-i', help='INI file with needed information', required=True)
+@click.option('--jwt-audit-claim', '-j', help='The JWT\'s aud claim. The client_id of the client for which it was issued', required=True)
+@click.option('--jti', '-t', help='The jti of the JWT to blacklist', required=True)
+@click.option('--debug', help='Turn on debugging', required=False, is_flag=True)
+def blacklist_a_token(
+        ini,
+        jwt_audit_claim,
+        jti,
+        debug
+    ):
+
+    body = {}
+    body['aud'] = jwt_audit_claim
+    body['jti'] = jti
+    body = json.loads(data)
+    client = Auth0Client(get_config_dict(ini, debug))
+    print(client.blacklist_a_token(body=body))

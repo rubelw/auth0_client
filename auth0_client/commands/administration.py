@@ -1,8 +1,14 @@
 import click
 import json
-import sys
+import inspect
 from auth0_client.Auth0Client import Auth0Client
 from auth0_client.cli_util import (pretty, get_config_dict, group, highlight)
+
+def lineno():
+    """Returns the current line number in our program."""
+    return str(' - commands/administration.py - line number: '+str(inspect.currentframe().f_back.f_lineno))
+
+
 
 @group(short_help='Administration')
 def administration():
@@ -29,8 +35,19 @@ def dump_account_details(
 
     client_data = client.get_all_client_applications()
 
+    # Clean the json
+    #client_data = client_data.replace('"utf-8"','\"utf-8\"').replace('"X-UA-Compatible"','\"X-UA-Compatible\"')
+
     print(client_data)
-    client_data = json.loads(client_data)
+
+
+    if debug:
+        print('trying to load client data'+lineno())
+    #client_data = json.loads(client_data[0])
+
+    if debug:
+        print('done loading client data: '+lineno())
+
     client_ids = {}
     for client_info in client_data:
         if 'client_id' in client_info:
@@ -41,6 +58,11 @@ def dump_account_details(
 
     print('client ids:')
     print(pretty(client_ids))
+
+
+
+    input("\n\nPress Enter To Continue\n")
+
     # Get all users
     print("\n#######################")
     print('Users')
@@ -87,6 +109,7 @@ def dump_account_details(
 
 
 
+    input("\n\nPress Enter To Continue\n")
 
     # Get all rules
     print("\n#######################")
@@ -97,6 +120,8 @@ def dump_account_details(
     rules_data = client.get_all_rules()
     print(rules_data)
 
+
+    input("\n\nPress Enter To Continue\n")
 
     # Get all grants
     print("\n#######################")
@@ -122,6 +147,8 @@ def dump_account_details(
     print(pretty(grant_ids))
 
 
+    input("\n\nPress Enter To Continue\n")
+
     # Get more grants
 
     for id in grant_ids:
@@ -137,6 +164,7 @@ def dump_account_details(
 
 
 
+    input("\n\nPress Enter To Continue\n")
 
 
     # Get all connections
@@ -148,6 +176,7 @@ def dump_account_details(
     connection_data = client.get_all_connections()
     print(connection_data)
 
+    input("\n\nPress Enter To Continue\n")
 
 
     # Get all Guardian Factors
@@ -159,6 +188,8 @@ def dump_account_details(
     factor_data = client.list_factors()
     print(factor_data)
 
+    input("\n\nPress Enter To Continue\n")
+
     # Get all Guardian Enrollment Templates
     print("\n#######################")
     print('Guardian Enrollment Templates')
@@ -167,6 +198,8 @@ def dump_account_details(
 
     template_data = client.list_enrollment_templates()
     print(template_data)
+
+    input("\n\nPress Enter To Continue\n")
 
     # Get all Guardian SNS Factor Provider Config
     print("\n#######################")
@@ -178,6 +211,7 @@ def dump_account_details(
     print(sns_factor_config_data)
 
 
+    input("\n\nPress Enter To Continue\n")
 
     # Get all Guardian Twilio Factor Provider Config
     print("\n#######################")
@@ -188,6 +222,7 @@ def dump_account_details(
     twilio_factor_config_data = client.list_twilio_factor_provider_config()
     print(twilio_factor_config_data)
 
+    input("\n\nPress Enter To Continue\n")
 
 
     # Get all Resource Servers
@@ -199,6 +234,8 @@ def dump_account_details(
     resource_data = client.get_all_resource_servers()
     print(resource_data)
 
+    input("\n\nPress Enter To Continue\n")
+
     # Daily Stats
     print("\n#######################")
     print('Daily Stats')
@@ -208,6 +245,7 @@ def dump_account_details(
     stats_data = client.daily_stats(2)
     print(stats_data)
 
+    input("\n\nPress Enter To Continue\n")
 
     # Tenants
     print("\n#######################")
