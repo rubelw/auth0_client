@@ -13,7 +13,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     LONG_DESCRIPTION = f.read()
 
 
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 
 setup_requires = (
     ['pytest-runner'] if any(x in sys.argv for x in ('pytest', 'test', 'ptr')) else []
@@ -42,7 +42,11 @@ setup(
         "future>=0.16.0",
         "six>=1.11.0",
         "pip",
-        "auth0-python"
+        "auth0-python",
+        "click-help-colors",
+        "reprint",
+        "tabulate",
+        "click-completion"
     ],
     keywords=['auth0', 'client'],
     classifiers=[
@@ -64,6 +68,6 @@ setup(
     ],
     entry_points="""
         [console_scripts]
-        auth-client=auth0_client.command:cli
+        auth-client=auth0_client.command:auth0_client
     """
 )
