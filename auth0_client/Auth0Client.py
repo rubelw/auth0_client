@@ -233,14 +233,14 @@ class Auth0Client:
             print('command - get_a_connection'+lineno())
 
         connections = Connections(self.domain, self.token)
-        return pretty(connections.all(id=id, fields=fields, include_fields=include_fields))
+        return pretty(connections.get(id=id, fields=fields, include_fields=include_fields))
 
     def update_a_connection(self, id, body):
         if self.debug:
             print('command - update_a_connection'+lineno())
 
         connections = Connections(self.domain, self.token)
-        return pretty(connections.all(id=id, body=body))
+        return pretty(connections.update(id=id, body=body))
 
     def delete_a_connection(self, id):
         if self.debug:

@@ -13,6 +13,11 @@ auth0_client is on PyPI so all you need is:
    $ pip install auth0_client
 
 
+Demonstration
+=============
+
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/rubelw/auth0_client/blob/master/images/demo.gif"><img src="https://github.com/rubelw/auto0_client/raw/master/images/demo.gif" alt="Auth0_Client tutorial" style="max-width:100%;"></a></p>
+
 
 Example
 =======
