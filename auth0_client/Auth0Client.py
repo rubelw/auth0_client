@@ -129,7 +129,7 @@ class Auth0Client:
         return pretty(grant_data)
 
 
-    def create_client_grant(self):
+    def create_client_grant(self, body):
         if self.debug:
             print('command - create_client_grant'+lineno())
 
