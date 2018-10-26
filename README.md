@@ -8,23 +8,21 @@ Installation
 ============
 auth0_client is on PyPI so all you need is:
 
-.. code:: console
-
-   $ pip install auth0_client
-
+``` {.sourceCode .console
+    $ pip install auth0_client
+```
 
 Demonstration
 =============
 
-<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/rubelw/auth0_client/blob/master/images/demo.gif"><img src="https://github.com/rubelw/auto0_client/raw/master/images/demo.gif" alt="Auth0_Client tutorial" style="max-width:100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/rubelw/auth0_client/blob/master/images/demo.gif"><img src="https://github.com/rubelw/auth0_client/raw/master/images/demo.gif" alt="Auth0_Client tutorial" style="max-width:100%;"></a></p>
 
 
 Example
 =======
 Getting help
 
-.. code:: console
-
+``` {.sourceCode .console
    $ Usage: auth-client [OPTIONS] COMMAND [ARGS]...
 
     Options:
@@ -75,21 +73,28 @@ Getting help
       list-or-search-users
       unlink-a-user-identity
       update-a-user
+```
+
+
 
 To setup autocomplete to enable tabbing on commands
 ===================================================
 Add the following to your ~/.bash_profile
 
-.. code:: console
-
+``` {.sourceCode .console
       eval "$(_AUTH_CLIENT_COMPLETE=source auth-client)"
+```
+
+
 
 Example Ini file
 ================
-.. code:: console
 
+``` {.sourceCode .console
     [parameters]
     domain = xxx.auth0.com
     id = xxx
     secret = xxxx
+```
+
 
