@@ -11,12 +11,30 @@ def user_blocks():
 user_blocks.help = highlight(user_blocks.help, ['Create:', 'Delete:', 'Update:'], 'green')
 
 @user_blocks.command()
-def get_blocks_by_identifier():
-    print('not configured yet')
+@click.option('--ini', '-i', help='INI file with needed information', required=True)
+@click.option('--identifier', '-d', help=' Should be any of: username, phone_number, email.', required=True)
+@click.option('--debug', help='Turn on debugging', required=False, is_flag=True)
+def get_blocks_by_identifier(
+        ini,
+        identifier,
+        debug
+    ):
+
+    client = Auth0Client(get_config_dict(ini, debug))
+    print(client.get_blocks_by_identifier(identifier))
 
 @user_blocks.command()
-def unblock_by_identifier():
-    print('not configured yet')
+@click.option('--ini', '-i', help='INI file with needed information', required=True)
+@click.option('--identifier', '-d', help=' Should be any of: username, phone_number, email.', required=True)
+@click.option('--debug', help='Turn on debugging', required=False, is_flag=True)
+def unblock_by_identifier(
+        ini,
+        identifier,
+        debug
+    ):
+
+    client = Auth0Client(get_config_dict(ini, debug))
+    print(client.unblock_by_identifier(identifier))
 
 @user_blocks.command()
 @click.option('--ini', '-i', help='INI file with needed information', required=True)
@@ -32,7 +50,17 @@ def get_a_users_blocks(
     print(client.list_user_blocks(user_id))
 
 @user_blocks.command()
-def unblock_a_user():
-    print('not configured yet')
+@click.option('--ini', '-i', help='INI file with needed information', required=True)
+@click.option('--user-id', '-u', help='The user_id of the user to update.', required=True)
+@click.option('--debug', help='Turn on debugging', required=False, is_flag=True)
+def unblock_a_user(
+        ini,
+        user_id,
+        debug
+    ):
+
+    client = Auth0Client(get_config_dict(ini, debug))
+    print(client.unblock_a_user(user_id))
+
 
 

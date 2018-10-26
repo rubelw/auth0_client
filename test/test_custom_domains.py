@@ -22,14 +22,14 @@ def captured_output():
         sys.stdout, sys.stderr = old_out, old_err
 
 
-class TestCustomDomains(unittest.TestCase):
+class TestBlacklist(unittest.TestCase):
     """
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.all')
-    def test_get_all_connections(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.custom_domains.CustomDomains.get_all')
+    def test_get_all_connections(self, domains, exit):
+        domains.return_value='123'
 
 
         debug = False
@@ -43,62 +43,14 @@ class TestCustomDomains(unittest.TestCase):
 
         client= class_to_test(config_dict)
 
-        real_results = client.get_all_connections()
-
-
-        self.assertEqual('[\n\t"1",\n\t"2",\n\t"3"\n]', real_results)
-
-
-    @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.get')
-    def test_get_a_connection(self, connections, exit):
-        connections.return_value='123'
-
-
-        debug = False
-        exit.return_value=None
-        config_dict = {}
-        config_dict['debug'] = debug
-        config_dict['domain'] = 'test'
-        config_dict['client_id'] = 'id'
-        config_dict['client_secret'] = 'secret'
-
-
-        client= class_to_test(config_dict)
-
-        real_results = client.get_a_connection(id='123', fields='456', include_fields='789')
-
+        real_results = client.get_custom_domains()
 
         self.assertEqual('"123"', real_results)
 
-
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete_user_by_email')
-    def test_delete_a_connection_user(self, connections, exit):
-        connections.return_value='123'
-
-
-        debug = False
-        exit.return_value=None
-        config_dict = {}
-        config_dict['debug'] = debug
-        config_dict['domain'] = 'test'
-        config_dict['client_id'] = 'id'
-        config_dict['client_secret'] = 'secret'
-
-
-        client= class_to_test(config_dict)
-
-        real_results = client.delete_a_connection_user(id='123', email='123')
-
-
-        self.assertEqual('"123"', real_results)
-
-
-    @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.update')
-    def test_update_a_connection(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.custom_domains.CustomDomains.create_new')
+    def test_configure_new_custom_domain(self, domains, exit):
+        domains.return_value='123'
 
 
         debug = False
@@ -113,30 +65,67 @@ class TestCustomDomains(unittest.TestCase):
         client= class_to_test(config_dict)
 
         body= '{"123":"xxx"}'
-        real_results = client.update_a_connection(id='123', body=body)
+        real_results = client.create_new_custom_domain(body=body)
 
 
         self.assertEqual('"123"', real_results)
 
-
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete')
-    def test_delete_a_connection_user(self, connections, exit):
-        connections.return_value='123'
-
+    @patch('auth0.v3.management.custom_domains.CustomDomains.get_domain_by_id')
+    def test_get_custom_domain_configuration(self, domains, exit):
+        domains.return_value = '123'
 
         debug = False
-        exit.return_value=None
+        exit.return_value = None
         config_dict = {}
         config_dict['debug'] = debug
         config_dict['domain'] = 'test'
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
+        client = class_to_test(config_dict)
 
-        client= class_to_test(config_dict)
-
-        real_results = client.delete_a_connection(id='123')
-
+        real_results = client.get_custom_domain(id='123')
 
         self.assertEqual('"123"', real_results)
+
+    @patch('sys.exit')
+    @patch('auth0.v3.management.custom_domains.CustomDomains.delete')
+    def test_delete_custom_domain_configuration(self, domains, exit):
+        domains.return_value = '123'
+
+        debug = False
+        exit.return_value = None
+        config_dict = {}
+        config_dict['debug'] = debug
+        config_dict['domain'] = 'test'
+        config_dict['client_id'] = 'id'
+        config_dict['client_secret'] = 'secret'
+
+        client = class_to_test(config_dict)
+
+        real_results = client.delete_custom_domain(id='123')
+
+        self.assertEqual('"123"', real_results)
+
+
+    @patch('sys.exit')
+    @patch('auth0.v3.management.custom_domains.CustomDomains.verify')
+    def test_verify_a_custom_domain(self, domains, exit):
+        domains.return_value = '123'
+
+        debug = False
+        exit.return_value = None
+        config_dict = {}
+        config_dict['debug'] = debug
+        config_dict['domain'] = 'test'
+        config_dict['client_id'] = 'id'
+        config_dict['client_secret'] = 'secret'
+
+        client = class_to_test(config_dict)
+
+        real_results = client.verify_custom_domain(id='123')
+
+        self.assertEqual('"123"', real_results)
+
+

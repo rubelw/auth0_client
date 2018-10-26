@@ -22,14 +22,14 @@ def captured_output():
         sys.stdout, sys.stderr = old_out, old_err
 
 
-class TestClientGrants(unittest.TestCase):
+class TestDeviceCredentials(unittest.TestCase):
     """
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.client_grants.ClientGrants.all')
-    def test_get_all_client_grants(self, grants, exit):
-        grants.return_value='123'
+    @patch('auth0.v3.management.device_credentials.DeviceCredentials.get')
+    def test_list_device_credentials(self, device, exit):
+        device.return_value='123'
 
 
         debug = False
@@ -39,19 +39,23 @@ class TestClientGrants(unittest.TestCase):
         config_dict['domain'] = 'test'
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
-
 
         client= class_to_test(config_dict)
 
-        real_results = client.get_client_grants()
+        real_results = client.get_device_credentials(
+            user_id='123',
+            client_id='456',
+            cred_type='abc',
+            fields='email',
+            include_fields=True
+        )
 
-
-        self.assertEqual("['1', '2', '3']", str(json.loads(real_results)))
+        self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.client_grants.ClientGrants.create')
-    def test_create_a_client_grant(self, grants, exit):
-        grants.return_value='123'
+    @patch('auth0.v3.management.device_credentials.DeviceCredentials.create')
+    def test_create_a_device_public_key(self, device, exit):
+        device.return_value='123'
 
 
         debug = False
@@ -61,20 +65,21 @@ class TestClientGrants(unittest.TestCase):
         config_dict['domain'] = 'test'
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
-
 
         client= class_to_test(config_dict)
 
         body= '{"123":"xxx"}'
-        real_results = client.create_client_grant(body=body)
+        real_results = client.create_device_public_key(
+            body=body
+        )
 
+        self.assertEqual('"123"', real_results)
 
-        self.assertEqual('123', str(json.loads(real_results)))
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.client_grants.ClientGrants.delete')
-    def test_delete_a_client_grant(self, grants, exit):
-        grants.return_value='123'
+    @patch('auth0.v3.management.device_credentials.DeviceCredentials.delete')
+    def test_delete_a_device_credential(self, device, exit):
+        device.return_value='123'
 
 
         debug = False
@@ -85,35 +90,12 @@ class TestClientGrants(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
-
         client= class_to_test(config_dict)
 
-        real_results = client.delete_client_grant(id='123')
+        real_results = client.delete_device_credentials(
+            id='123'
+        )
 
-
-        self.assertEqual('123', str(json.loads(real_results)))
-
-    @patch('sys.exit')
-    @patch('auth0.v3.management.client_grants.ClientGrants.update')
-    def test_update_a_client_grant(self, grants, exit):
-        grants.return_value='123'
-
-
-        debug = False
-        exit.return_value=None
-        config_dict = {}
-        config_dict['debug'] = debug
-        config_dict['domain'] = 'test'
-        config_dict['client_id'] = 'id'
-        config_dict['client_secret'] = 'secret'
-
-
-        client= class_to_test(config_dict)
-
-        body= '{"123":"xxx"}'
-        real_results = client.update_client_grant(id='123', body=body)
-
-
-        self.assertEqual('123', str(json.loads(real_results)))
+        self.assertEqual('"123"', real_results)
 
 

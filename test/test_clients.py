@@ -22,7 +22,7 @@ def captured_output():
         sys.stdout, sys.stderr = old_out, old_err
 
 
-class TestBlacklist(unittest.TestCase):
+class TestClients(unittest.TestCase):
     """
     Test command class
     """

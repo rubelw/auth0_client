@@ -22,9 +22,17 @@ def get_a_list_of_factors_and_statuses(
     print(client.list_factors())
 
 @guardian.command()
-def get_a_guardian_enrollment():
-    print('not configured yet')
+@click.option('--ini', '-i', help='INI file with needed information', required=True)
+@click.option('--enrollment-id', '-e', help='delete a guardian enrollment', required=True)
+@click.option('--debug', help='Turn on debugging', required=False, is_flag=True)
+def get_a_guardian_enrollment(
+        ini,
+        enrollment_id,
+        debug
+    ):
 
+    client = Auth0Client(get_config_dict(ini, debug))
+    print(client.get_a_guardian_enrollment(id))
 
 
 @guardian.command()
@@ -66,7 +74,7 @@ def update_enrollment_and_verification_templates(
     ):
 
     client = Auth0Client(get_config_dict(ini, debug))
-    print(client.list_enrollment_templates())
+    print(client.update_enrollment_and_verification_templates(body=body))
 
 
 @guardian.command()
@@ -116,7 +124,7 @@ def create_a_guardian_enrollment_ticket(
     ):
 
     client = Auth0Client(get_config_dict(ini, debug))
-    print(client.update_guardians_twilio_sms_factor_provider(body=body))
+    print(client.create_a_guardian_enrollment_ticket(body=body))
 
 
 @guardian.command()

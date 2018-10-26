@@ -22,14 +22,14 @@ def captured_output():
         sys.stdout, sys.stderr = old_out, old_err
 
 
-class TestCustomDomains(unittest.TestCase):
+class TestEmails(unittest.TestCase):
     """
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.all')
-    def test_get_all_connections(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.emails.Emails.get')
+    def test_get_the_email_provider(self, emails, exit):
+        emails.return_value='123'
 
 
         debug = False
@@ -40,42 +40,20 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
-
         client= class_to_test(config_dict)
 
-        real_results = client.get_all_connections()
-
-
-        self.assertEqual('[\n\t"1",\n\t"2",\n\t"3"\n]', real_results)
-
-
-    @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.get')
-    def test_get_a_connection(self, connections, exit):
-        connections.return_value='123'
-
-
-        debug = False
-        exit.return_value=None
-        config_dict = {}
-        config_dict['debug'] = debug
-        config_dict['domain'] = 'test'
-        config_dict['client_id'] = 'id'
-        config_dict['client_secret'] = 'secret'
-
-
-        client= class_to_test(config_dict)
-
-        real_results = client.get_a_connection(id='123', fields='456', include_fields='789')
-
+        real_results = client.get_email_provider(
+            fields=['email'],
+            include_fields=True
+        )
 
         self.assertEqual('"123"', real_results)
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete_user_by_email')
-    def test_delete_a_connection_user(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.emails.Emails.delete')
+    def test_delete_the_email_provider(self, emails, exit):
+        emails.return_value='123'
 
 
         debug = False
@@ -85,20 +63,18 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['domain'] = 'test'
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
-
 
         client= class_to_test(config_dict)
 
-        real_results = client.delete_a_connection_user(id='123', email='123')
-
+        real_results = client.delete_email_provider(
+        )
 
         self.assertEqual('"123"', real_results)
 
-
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.update')
-    def test_update_a_connection(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.emails.Emails.update')
+    def test_update_the_email_provider(self, emails, exit):
+        emails.return_value='123'
 
 
         debug = False
@@ -108,21 +84,20 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['domain'] = 'test'
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
-
 
         client= class_to_test(config_dict)
 
         body= '{"123":"xxx"}'
-        real_results = client.update_a_connection(id='123', body=body)
-
+        real_results = client.update_email_provider(
+            body=body
+        )
 
         self.assertEqual('"123"', real_results)
 
-
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete')
-    def test_delete_a_connection_user(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.emails.Emails.config')
+    def test_configure_the_email_provider(self, emails, exit):
+        emails.return_value='123'
 
 
         debug = False
@@ -133,10 +108,13 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
-
         client= class_to_test(config_dict)
 
-        real_results = client.delete_a_connection(id='123')
-
+        body= '{"123":"xxx"}'
+        real_results = client.configure_email_provider(
+            body=body
+        )
 
         self.assertEqual('"123"', real_results)
+
+

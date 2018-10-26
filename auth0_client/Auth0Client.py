@@ -17,12 +17,18 @@ from auth0.v3.management import UsersByEmail
 from auth0.v3.management import Stats
 from auth0.v3.management import Guardian
 from auth0.v3.management import Rules
+from auth0.v3.management import RulesConfigs
 from auth0.v3.management import ResourceServers
 from auth0.v3.management import Grants
 from auth0.v3.management import DeviceCredentials
 from auth0.v3.management import CustomDomains
 from auth0.v3.management import EmailTemplates
 from auth0.v3.management import Jobs
+from auth0.v3.management import Tickets
+from auth0.v3.management import Emails
+from auth0.v3.management import Logs
+
+
 
 from auth0_client.cli_util import (pretty)
 
@@ -78,7 +84,6 @@ class Auth0Client:
 
             token = get_token.client_credentials(self.client_id,
                                                  self.client_secret, 'https://{}/api/v2/'.format(self.domain))
-
             self.token =  token['access_token']
         except Exception as err:
             print('Problem getting token' + str(err))
@@ -91,7 +96,6 @@ class Auth0Client:
         if self.debug:
             print('command - get_blacklists'+lineno())
 
-
         blacklists = Blacklists(self.domain, self.token)
 
         return pretty(blacklists.get())
@@ -100,11 +104,9 @@ class Auth0Client:
         if self.debug:
             print('command - blacklist a token'+lineno())
 
-
         blacklists = Blacklists(self.domain, self.token)
 
         return pretty(blacklists.create())
-
 
     ##################
     # Client Grants
@@ -128,15 +130,12 @@ class Auth0Client:
 
         return pretty(grant_data)
 
-
     def create_client_grant(self, body):
         if self.debug:
             print('command - create_client_grant'+lineno())
 
         grants = ClientGrants(self.domain, self.token)
         return pretty(grants.create(body=body))
-
-
 
     def delete_client_grant(self, id):
         if self.debug:
@@ -145,15 +144,12 @@ class Auth0Client:
         grants = ClientGrants(self.domain, self.token)
         return pretty(grants.delete(id=id))
 
-
     def update_client_grant(self, id, body):
         if self.debug:
             print('command - update_client_grant'+lineno())
 
         grants = ClientGrants(self.domain, self.token)
         return pretty(grants.update(id=id, body=body))
-
-
 
     ##################
     # Clients
@@ -169,9 +165,7 @@ class Auth0Client:
         pages = math.ceil(len(clients.all()) / clients_per_page)
         for page in range(pages):
 
-
             results = clients.all(page=page, per_page=clients_per_page)
-
 
             for client in results:
                 client_data.append(client)
@@ -205,8 +199,6 @@ class Auth0Client:
 
         clients = Clients(self.domain, self.token)
         return pretty(clients.update(id=id, body=body))
-
-
 
     ##################
     # Connections
@@ -265,7 +257,6 @@ class Auth0Client:
             print('command - get_custom_domains'+lineno())
 
         domains = CustomDomains(self.domain, self.token)
-
         return pretty(domains.get_all())
 
 
@@ -274,7 +265,6 @@ class Auth0Client:
             print('command - create_new_custom_domain'+lineno())
 
         domains = CustomDomains(self.domain, self.token)
-
         return pretty(domains.create_new(body=body))
 
     def get_custom_domain(self, id):
@@ -282,7 +272,6 @@ class Auth0Client:
             print('command - get_custom_domain'+lineno())
 
         domains = CustomDomains(self.domain, self.token)
-
         return pretty(domains.get_domain_by_id(id=id))
 
     def delete_custom_domain(self, id):
@@ -290,7 +279,6 @@ class Auth0Client:
             print('command - delete_custom_domain'+lineno())
 
         domains = CustomDomains(self.domain, self.token)
-
         return pretty(domains.delete(id=id))
 
     def verify_custom_domain(self, id):
@@ -298,29 +286,24 @@ class Auth0Client:
             print('command - verify_custom_domain'+lineno())
 
         domains = CustomDomains(self.domain, self.token)
-
-        return pretty(domains.delete(id=id))
-
-
+        return pretty(domains.verify(id=id))
 
     ##################
     # Device Credentials
     ##################
 
-    def get_device_credentials(self, user_id, client_id, cred_type):
+    def get_device_credentials(self, user_id, client_id, cred_type, fields, include_fields):
         if self.debug:
             print('command - get_device_credentials'+lineno())
 
         device = DeviceCredentials(self.domain, self.token)
-
-        return pretty(device.get(user_id=user_id, client_id=client_id, type=cred_type))
+        return pretty(device.get(fields=fields, include_fields=include_fields, user_id=user_id, client_id=client_id, type=cred_type))
 
     def create_device_public_key(self, body):
         if self.debug:
             print('command - create_device_public_key'+lineno())
 
         device = DeviceCredentials(self.domain, self.token)
-
         return pretty(device.create(body=body))
 
     def delete_device_credentials(self, id):
@@ -328,7 +311,6 @@ class Auth0Client:
             print('command - delete_device_credentials'+lineno())
 
         device = DeviceCredentials(self.domain, self.token)
-
         return pretty(device.delete(id=id))
 
     ##################
@@ -340,7 +322,6 @@ class Auth0Client:
             print('command - create_email_template'+lineno())
 
         template = EmailTemplates(self.domain, self.token)
-
         return pretty(template.create(body=body))
 
     def update_email_template(self, name, body):
@@ -348,17 +329,13 @@ class Auth0Client:
             print('command - update_email_template'+lineno())
 
         template = EmailTemplates(self.domain, self.token)
-
         return pretty(template.update(template_name=name, body=body))
-
-
 
     def get_an_email_template(self, name):
         if self.debug:
             print('command - get_an_email_template'+lineno())
 
         template = EmailTemplates(self.domain, self.token)
-
         return pretty(template.get(template_name=name))
 
     ##################
@@ -371,7 +348,6 @@ class Auth0Client:
             print('command - get_email_provider'+lineno())
 
         emails = Emails(self.domain, self.token)
-
         return pretty(emails.get(fields=fields, include_fields=include_fields))
 
     def delete_email_provider(self):
@@ -379,7 +355,6 @@ class Auth0Client:
             print('command - delete_email_provider'+lineno())
 
         emails = Emails(self.domain, self.token)
-
         return pretty(emails.delete())
 
     def update_email_provider(self, body):
@@ -387,7 +362,6 @@ class Auth0Client:
             print('command - update_email_provider'+lineno())
 
         emails = Emails(self.domain, self.token)
-
         return pretty(emails.update(body=body))
 
     def configure_email_provider(self, body):
@@ -395,7 +369,6 @@ class Auth0Client:
             print('command - configure_email_provider'+lineno())
 
         emails = Emails(self.domain, self.token)
-
         return pretty(emails.config(body=body))
 
     ##################
@@ -407,7 +380,6 @@ class Auth0Client:
             print('command - get_all_grants'+lineno())
 
         grants = Grants(self.domain, self.token)
-
         return pretty(grants.get_all())
 
     def delete_grant(self, id):
@@ -415,7 +387,6 @@ class Auth0Client:
             print('command - delete grant'+lineno())
 
         grants = Grants(self.domain, self.token)
-
         return pretty(grants.delete(id=id))
 
     ##################
@@ -427,7 +398,6 @@ class Auth0Client:
             print('command - delete_a_guardian_enrollment'+lineno())
 
         guardian = Guardian(self.domain, self.token)
-
         return pretty(guardian.delete_enrollment(id=id))
 
 
@@ -436,7 +406,6 @@ class Auth0Client:
             print('command - list_factors'+lineno())
 
         guardian = Guardian(self.domain, self.token)
-
         return pretty(guardian.all_factors())
 
     def list_enrollment_templates(self):
@@ -491,6 +460,13 @@ class Auth0Client:
         guardian = Guardian(self.domain, self.token)
         return pretty(guardian.update_factor_providers(body=body))
 
+    def get_a_guardian_enrollment(self, id):
+        if self.debug:
+            print('command - get_a_guardian_enrollment'+lineno())
+
+        guardian = Guardian(self.domain, self.token)
+        return pretty(guardian.get_enrollment(id=id))
+
     ##################
     # Jobs
     ##################
@@ -543,25 +519,38 @@ class Auth0Client:
 
     def get_log_events_by_id(self, id):
         if self.debug:
-            print('command - get_user_log_events'+lineno())
+            print('command - get_log_events_by_id'+lineno())
 
-        log_data = []
+        logs = Logs(self.domain, self.token)
+        return pretty(logs.get(id=id))
 
-        users = Users(self.domain, self.token)
-        response = users.get_log_events(user_id=id)
-        print(json.dumps(response))
+    def search_log_events(
+            self,
+            page,
+            per_page,
+            sort,
+            fields,
+            include_fields,
+            include_totals,
+            from_id,
+            take,
+            query
+    ):
+        if self.debug:
+            print('command - search_log_events'+lineno())
 
-        logs_per_page = 10
+        logs = Logs(self.domain, self.token)
+        return pretty(logs.search(
+            page=page,
+            per_page=per_page,
+            sort=sort,
+            q=query,
+            include_totals=include_totals,
+            fields=fields,
+            from_param=from_id,
+            take = take
+        ))
 
-        pages = math.ceil(len(users.get_log_events(user_id=id, page=0)) / logs_per_page)
-        for page in range(pages):
-            results = users.get_log_events(user_id=id, page=page, per_page=logs_per_page)
-            print(results)
-            if 'logs' in results:
-                for logs in results['logs']:
-                    log_data.append(logs)
-
-        return pretty(log_data)
 
 
     ##################
@@ -572,8 +561,35 @@ class Auth0Client:
             print('command - get_all_resource_servers'+lineno())
 
         resourceservers = ResourceServers(self.domain, self.token)
-
         return pretty(resourceservers.get_all())
+
+    def create_resource_server(self, body):
+        if self.debug:
+            print('command - create_resource_server'+lineno())
+
+        resourceservers = ResourceServers(self.domain, self.token)
+        return pretty(resourceservers.create(body=body))
+
+    def get_resource_server_by_id(self, id):
+        if self.debug:
+            print('command - get_resource_server_by_id'+lineno())
+
+        resourceservers = ResourceServers(self.domain, self.token)
+        return pretty(resourceservers.get(id=id))
+
+    def delete_resource_server(self, id):
+        if self.debug:
+            print('command - delete_resource_server'+lineno())
+
+        resourceservers = ResourceServers(self.domain, self.token)
+        return pretty(resourceservers.delete(id=id))
+
+    def update_resource_server(self, id, body):
+        if self.debug:
+            print('command - update_resource_server'+lineno())
+
+        resourceservers = ResourceServers(self.domain, self.token)
+        return pretty(resourceservers.update(id=id, body=body))
 
     ##################
     # Rules
@@ -584,12 +600,61 @@ class Auth0Client:
             print('command - get_all_rules'+lineno())
 
         rules = Rules(self.domain, self.token)
-
         return pretty(rules.all())
+
+    def create_a_rule(self, body):
+        if self.debug:
+            print('command - create_a_rule'+lineno())
+
+        rules = Rules(self.domain, self.token)
+        return pretty(rules.create(body=body))
+
+    def get_rule_by_id(self, id, fields, include_fields):
+        if self.debug:
+            print('command - get_rule_by_id'+lineno())
+
+        rules = Rules(self.domain, self.token)
+        return pretty(rules.get(id=id, fields=fields, include_fields=include_fields))
+
+    def delete_rule(self, id):
+        if self.debug:
+            print('command - delete_rule'+lineno())
+
+        rules = Rules(self.domain, self.token)
+        return pretty(rules.delete(id=id))
+
+    def update_rule(self, id, body):
+        if self.debug:
+            print('command - update_rule'+lineno())
+
+        rules = Rules(self.domain, self.token)
+        return pretty(rules.update(id=id, body=body))
 
     ##################
     # Rules Configs
     ##################
+
+    def list_config_variable_keys_for_rules(self):
+        if self.debug:
+            print('command - list_config_variable_keys_for_rules'+lineno())
+
+        rules = RulesConfigs(self.domain, self.token)
+        return pretty(rules.all())
+
+    def remove_rules_config_for_given_key(self,key):
+        if self.debug:
+            print('command - remove_rules_config_for_given_key'+lineno())
+
+        rules = RulesConfigs(self.domain, self.token)
+        return pretty(rules.remove(key))
+
+    def set_the_rules_config_for_a_given_key(self,key, body):
+        if self.debug:
+            print('command - set_the_rules_config_for_a_given_key'+lineno())
+
+        rules = RulesConfigs(self.domain, self.token)
+        return pretty(rules.set_rule_for_key(key=key, body=body))
+
 
     ##################
     # Stats
@@ -599,7 +664,6 @@ class Auth0Client:
             print('command - active_users'+lineno())
 
         stats = Stats(self.domain, self.token)
-
         return pretty(stats.active_users())
 
     def daily_stats(self,days):
@@ -614,34 +678,37 @@ class Auth0Client:
     ##################
     # Tenants
     ##################
-
-    ##################
-    # Tickets
-    ##################
-
-    ##################
-    # User Blocks
-    ##################
-
-    ##################
-    # Users
-    ##################
-
-    ##################
-    # Users by email
-    ##################
-
-
-    ##################
-    # Tenants
-    ##################
     def get_tenants(self):
         if self.debug:
             print('command - get_tenant'+lineno())
 
         tenants = Tenants(self.domain, self.token)
-
         return pretty(tenants.get())
+
+    def update_tenant_settings(self, body):
+        if self.debug:
+            print('command - update_tenant_settings'+lineno())
+
+        tenants = Tenants(self.domain, self.token)
+        return pretty(tenants.update(body=body))
+
+    ##################
+    # Tickets
+    ##################
+
+    def create_an_email_verification_ticket(self, body):
+        if self.debug:
+            print('command - create_an_email_verification_ticket'+lineno())
+
+        tickets = Tickets(self.domain, self.token)
+        return pretty(tickets.create_email_verification(body=body))
+
+    def create_a_password_change_ticket(self, body):
+        if self.debug:
+            print('command - create_a_password_change_ticket'+lineno())
+
+        tickets = Tickets(self.domain, self.token)
+        return pretty(tickets.create_pswd_change(body=body))
 
 
     ##################
@@ -691,9 +758,7 @@ class Auth0Client:
             print('command - get_list_of_guardian_enrollments'+lineno())
 
         users = Users(self.domain, self.token)
-
         results = users.get_guardian_enrollments(user_id=user_id)
-
         return pretty(results)
 
 
@@ -728,9 +793,7 @@ class Auth0Client:
             print('command - delete'+lineno())
 
         users = Users(self.domain, self.token)
-
         results = users.delete(id=user_id)
-
         return pretty(results)
 
 
@@ -739,9 +802,7 @@ class Auth0Client:
             print('command - delete user multifactor provider'+lineno())
 
         users = Users(self.domain, self.token)
-
         results = users.delete_multifactor(id=user_id, provider=provider)
-
         return pretty(results)
 
 
@@ -751,7 +812,6 @@ class Auth0Client:
             print('command - create'+lineno())
 
         users = Users(self.domain, self.token)
-
         body = json.loads(body)
 
         # See if the connection is valid
@@ -768,9 +828,7 @@ class Auth0Client:
             print('The connection id should be : '+str(pretty(connection_ids)))
             sys.exit(1)
 
-
         results = users.create(body=body)
-
         return pretty(results)
 
 
@@ -796,11 +854,33 @@ class Auth0Client:
             print('The connection id should be : '+str(pretty(connection_ids)))
             sys.exit(1)
 
-
         results = users.update(id=id, body=body)
-
         return pretty(results)
 
+    def get_a_user(self, id, fields, include_fields):
+        if self.debug:
+            print('command - get_a_user'+lineno())
+
+        users = Users(self.domain, self.token)
+        results = users.get(id=id, fields=fields, include_fields=include_fields)
+        return pretty(results)
+
+    def unlink_a_user_identity(self, id, provider, user_id ):
+        if self.debug:
+            print('command - unlink_a_user_identity'+lineno())
+
+        users = Users(self.domain, self.token)
+        results = users.unlink_user_account(id=id, provider=provider, user_id=user_id)
+        return pretty(results)
+
+
+    def link_a_user_account(self, id, body):
+        if self.debug:
+            print('command - link_a_user_account'+lineno())
+
+        users = Users(self.domain, self.token)
+        results = users.link_user_account(user_id=id, body=body)
+        return pretty(results)
 
     ##################
     # UserBlocks
@@ -810,8 +890,30 @@ class Auth0Client:
             print('command - list_user_blocks'+lineno())
 
         blocks = UserBlocks(self.domain, self.token)
-
         return pretty(blocks.get(id=user_id))
+
+
+    def get_blocks_by_identifier(self, identifier):
+        if self.debug:
+            print('command - get_blocks_by_identifier'+lineno())
+
+        blocks = UserBlocks(self.domain, self.token)
+        return pretty(blocks.get_by_identifier(identifier=identifier))
+
+    def unblock_by_identifier(self, identifier):
+        if self.debug:
+            print('command - unblock_by_identifier'+lineno())
+
+        blocks = UserBlocks(self.domain, self.token)
+        return pretty(blocks.unblock_by_identifier(identifier=identifier))
+
+    def unblock_a_user(self, id):
+        if self.debug:
+            print('command - unblock_a_user'+lineno())
+
+        blocks = UserBlocks(self.domain, self.token)
+        return pretty(blocks.unblock(id=id))
+
 
     ##################
     # Users By Email

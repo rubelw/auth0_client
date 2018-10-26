@@ -22,14 +22,14 @@ def captured_output():
         sys.stdout, sys.stderr = old_out, old_err
 
 
-class TestCustomDomains(unittest.TestCase):
+class TestRules(unittest.TestCase):
     """
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.all')
-    def test_get_all_connections(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.rules.Rules.all')
+    def test_get_all_rules(self, rules, exit):
+        rules.return_value='123'
 
 
         debug = False
@@ -40,42 +40,18 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
-
         client= class_to_test(config_dict)
 
-        real_results = client.get_all_connections()
-
-
-        self.assertEqual('[\n\t"1",\n\t"2",\n\t"3"\n]', real_results)
-
-
-    @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.get')
-    def test_get_a_connection(self, connections, exit):
-        connections.return_value='123'
-
-
-        debug = False
-        exit.return_value=None
-        config_dict = {}
-        config_dict['debug'] = debug
-        config_dict['domain'] = 'test'
-        config_dict['client_id'] = 'id'
-        config_dict['client_secret'] = 'secret'
-
-
-        client= class_to_test(config_dict)
-
-        real_results = client.get_a_connection(id='123', fields='456', include_fields='789')
-
+        real_results = client.get_all_rules(
+        )
 
         self.assertEqual('"123"', real_results)
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete_user_by_email')
-    def test_delete_a_connection_user(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.rules.Rules.create')
+    def test_create_a_rule(self, rules, exit):
+        rules.return_value='123'
 
 
         debug = False
@@ -86,19 +62,19 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
-
         client= class_to_test(config_dict)
-
-        real_results = client.delete_a_connection_user(id='123', email='123')
-
+        body='{"123":"xxx"}'
+        real_results = client.create_a_rule(
+            body=body
+        )
 
         self.assertEqual('"123"', real_results)
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.update')
-    def test_update_a_connection(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.rules.Rules.get')
+    def test_get_rule_by_id(self, rules, exit):
+        rules.return_value='123'
 
 
         debug = False
@@ -109,20 +85,41 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
+        client= class_to_test(config_dict)
+        real_results = client.get_rule_by_id(
+            id='123',
+            fields=['123'],
+            include_fields=True
+        )
+
+        self.assertEqual('"123"', real_results)
+
+    @patch('sys.exit')
+    @patch('auth0.v3.management.rules.Rules.delete')
+    def test_delete_rule(self, rules, exit):
+        rules.return_value='123'
+
+
+        debug = False
+        exit.return_value=None
+        config_dict = {}
+        config_dict['debug'] = debug
+        config_dict['domain'] = 'test'
+        config_dict['client_id'] = 'id'
+        config_dict['client_secret'] = 'secret'
 
         client= class_to_test(config_dict)
-
-        body= '{"123":"xxx"}'
-        real_results = client.update_a_connection(id='123', body=body)
-
+        real_results = client.delete_rule(
+            id='123'
+        )
 
         self.assertEqual('"123"', real_results)
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete')
-    def test_delete_a_connection_user(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.rules.Rules.update')
+    def test_delete_rule(self, rules, exit):
+        rules.return_value='123'
 
 
         debug = False
@@ -133,10 +130,14 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
-
         client= class_to_test(config_dict)
+        body='{"123":"xxx"}'
 
-        real_results = client.delete_a_connection(id='123')
-
+        real_results = client.update_rule(
+            id='123',
+            body=body
+        )
 
         self.assertEqual('"123"', real_results)
+
+

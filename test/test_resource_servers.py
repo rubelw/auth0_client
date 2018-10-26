@@ -22,14 +22,14 @@ def captured_output():
         sys.stdout, sys.stderr = old_out, old_err
 
 
-class TestCustomDomains(unittest.TestCase):
+class TestResourceServers(unittest.TestCase):
     """
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.all')
-    def test_get_all_connections(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.resource_servers.ResourceServers.get_all')
+    def test_get_all_resource_servers(self, servers, exit):
+        servers.return_value='123'
 
 
         debug = False
@@ -40,42 +40,17 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
-
         client= class_to_test(config_dict)
 
-        real_results = client.get_all_connections()
-
-
-        self.assertEqual('[\n\t"1",\n\t"2",\n\t"3"\n]', real_results)
-
-
-    @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.get')
-    def test_get_a_connection(self, connections, exit):
-        connections.return_value='123'
-
-
-        debug = False
-        exit.return_value=None
-        config_dict = {}
-        config_dict['debug'] = debug
-        config_dict['domain'] = 'test'
-        config_dict['client_id'] = 'id'
-        config_dict['client_secret'] = 'secret'
-
-
-        client= class_to_test(config_dict)
-
-        real_results = client.get_a_connection(id='123', fields='456', include_fields='789')
-
+        real_results = client.get_all_resource_servers(
+        )
 
         self.assertEqual('"123"', real_results)
 
-
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete_user_by_email')
-    def test_delete_a_connection_user(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.resource_servers.ResourceServers.create')
+    def test_create_resource_server(self, servers, exit):
+        servers.return_value='123'
 
 
         debug = False
@@ -86,43 +61,19 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
-
         client= class_to_test(config_dict)
-
-        real_results = client.delete_a_connection_user(id='123', email='123')
-
-
-        self.assertEqual('"123"', real_results)
-
-
-    @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.update')
-    def test_update_a_connection(self, connections, exit):
-        connections.return_value='123'
-
-
-        debug = False
-        exit.return_value=None
-        config_dict = {}
-        config_dict['debug'] = debug
-        config_dict['domain'] = 'test'
-        config_dict['client_id'] = 'id'
-        config_dict['client_secret'] = 'secret'
-
-
-        client= class_to_test(config_dict)
-
         body= '{"123":"xxx"}'
-        real_results = client.update_a_connection(id='123', body=body)
-
+        real_results = client.create_resource_server(
+            body=body
+        )
 
         self.assertEqual('"123"', real_results)
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete')
-    def test_delete_a_connection_user(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.resource_servers.ResourceServers.get')
+    def test_get_resource_server_by_id(self, servers, exit):
+        servers.return_value='123'
 
 
         debug = False
@@ -133,10 +84,57 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
+        client= class_to_test(config_dict)
+        real_results = client.get_resource_server_by_id(
+            id='123'
+        )
+
+        self.assertEqual('"123"', real_results)
+
+
+    @patch('sys.exit')
+    @patch('auth0.v3.management.resource_servers.ResourceServers.delete')
+    def test_delete_resource_server(self, servers, exit):
+        servers.return_value='123'
+
+
+        debug = False
+        exit.return_value=None
+        config_dict = {}
+        config_dict['debug'] = debug
+        config_dict['domain'] = 'test'
+        config_dict['client_id'] = 'id'
+        config_dict['client_secret'] = 'secret'
+
+        client= class_to_test(config_dict)
+        real_results = client.delete_resource_server(
+            id='123'
+        )
+
+        self.assertEqual('"123"', real_results)
+
+    @patch('sys.exit')
+    @patch('auth0.v3.management.resource_servers.ResourceServers.update')
+    def test_update_resource_server(self, servers, exit):
+        servers.return_value='123'
+
+
+        debug = False
+        exit.return_value=None
+        config_dict = {}
+        config_dict['debug'] = debug
+        config_dict['domain'] = 'test'
+        config_dict['client_id'] = 'id'
+        config_dict['client_secret'] = 'secret'
 
         client= class_to_test(config_dict)
 
-        real_results = client.delete_a_connection(id='123')
-
+        body='{"123":"xxx"}'
+        real_results = client.update_resource_server(
+            id='123',
+            body=body
+        )
 
         self.assertEqual('"123"', real_results)
+
+

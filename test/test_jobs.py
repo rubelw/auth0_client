@@ -22,14 +22,14 @@ def captured_output():
         sys.stdout, sys.stderr = old_out, old_err
 
 
-class TestCustomDomains(unittest.TestCase):
+class TestJobs(unittest.TestCase):
     """
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.all')
-    def test_get_all_connections(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.jobs.Jobs.get')
+    def test_get_a_job(self, jobs, exit):
+        jobs.return_value='123'
 
 
         debug = False
@@ -40,42 +40,18 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
-
         client= class_to_test(config_dict)
 
-        real_results = client.get_all_connections()
-
-
-        self.assertEqual('[\n\t"1",\n\t"2",\n\t"3"\n]', real_results)
-
-
-    @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.get')
-    def test_get_a_connection(self, connections, exit):
-        connections.return_value='123'
-
-
-        debug = False
-        exit.return_value=None
-        config_dict = {}
-        config_dict['debug'] = debug
-        config_dict['domain'] = 'test'
-        config_dict['client_id'] = 'id'
-        config_dict['client_secret'] = 'secret'
-
-
-        client= class_to_test(config_dict)
-
-        real_results = client.get_a_connection(id='123', fields='456', include_fields='789')
-
+        real_results = client.get_a_job(
+            id='123'
+        )
 
         self.assertEqual('"123"', real_results)
 
-
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete_user_by_email')
-    def test_delete_a_connection_user(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.jobs.Jobs.get_failed_job')
+    def test_get_failed_job_error_details(self, jobs, exit):
+        jobs.return_value='123'
 
 
         debug = False
@@ -85,20 +61,19 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['domain'] = 'test'
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
-
 
         client= class_to_test(config_dict)
 
-        real_results = client.delete_a_connection_user(id='123', email='123')
-
+        real_results = client.get_failed_job_error_details(
+            id='123'
+        )
 
         self.assertEqual('"123"', real_results)
 
-
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.update')
-    def test_update_a_connection(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.jobs.Jobs.get_job_results')
+    def test_get_results_of_a_job(self, jobs, exit):
+        jobs.return_value='123'
 
 
         debug = False
@@ -109,20 +84,41 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
+        client= class_to_test(config_dict)
+
+        real_results = client.get_results_of_a_job(
+            id='123'
+        )
+
+        self.assertEqual('"123"', real_results)
+
+    @patch('sys.exit')
+    @patch('auth0.v3.management.jobs.Jobs.export_users')
+    def test_create_job_to_export_users(self, jobs, exit):
+        jobs.return_value='123'
+
+
+        debug = False
+        exit.return_value=None
+        config_dict = {}
+        config_dict['debug'] = debug
+        config_dict['domain'] = 'test'
+        config_dict['client_id'] = 'id'
+        config_dict['client_secret'] = 'secret'
 
         client= class_to_test(config_dict)
 
         body= '{"123":"xxx"}'
-        real_results = client.update_a_connection(id='123', body=body)
-
+        real_results = client.create_job_to_export_users(
+            body=body
+        )
 
         self.assertEqual('"123"', real_results)
 
-
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete')
-    def test_delete_a_connection_user(self, connections, exit):
-        connections.return_value='123'
+    @patch('auth0.v3.management.jobs.Jobs.import_users')
+    def test_create_job_to_import_users(self, jobs, exit):
+        jobs.return_value='123'
 
 
         debug = False
@@ -133,10 +129,39 @@ class TestCustomDomains(unittest.TestCase):
         config_dict['client_id'] = 'id'
         config_dict['client_secret'] = 'secret'
 
-
         client= class_to_test(config_dict)
 
-        real_results = client.delete_a_connection(id='123')
+        real_results = client.create_job_to_import_users(
+            connection_id='122',
+            file_obj='test',
+            upsert=True
 
+        )
 
         self.assertEqual('"123"', real_results)
+
+
+    @patch('sys.exit')
+    @patch('auth0.v3.management.jobs.Jobs.send_verification_email')
+    def test_send_a_verify_email_address_email(self, jobs, exit):
+        jobs.return_value='123'
+
+
+        debug = False
+        exit.return_value=None
+        config_dict = {}
+        config_dict['debug'] = debug
+        config_dict['domain'] = 'test'
+        config_dict['client_id'] = 'id'
+        config_dict['client_secret'] = 'secret'
+
+        client= class_to_test(config_dict)
+        body= '{"123":"xxx"}'
+        real_results = client.send_a_verify_email_address_email(
+            body=body
+
+        )
+
+        self.assertEqual('"123"', real_results)
+
+

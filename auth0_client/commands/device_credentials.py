@@ -15,17 +15,23 @@ device_credentials.help = highlight(device_credentials.help, ['Create:', 'Delete
 @click.option('--user-id', '-u', help='User id', required=True)
 @click.option('--client-id', '-c', help='Client id', required=True)
 @click.option('--credentials-type', '-t', help='Credentials type', required=True)
+@click.option('--fields', '-f', help='A comma separated list of fields to include or exclude (depending on include_fields) from the result, empty to retrieve all fields', required=True)
+@click.option('--include-fields', help='if the fields specified are to be excluded from the result,', required=False, is_flag=True, default=True)
 @click.option('--debug', help='Turn on debugging', required=False, is_flag=True)
 def list_device_credentials(
         ini,
         user_id,
         client_id,
         credentials_type,
+        fields,
+        include_fields,
         debug
     ):
 
+    fields = fields.split(',')
+
     client = Auth0Client(get_config_dict(ini, debug))
-    print(client.get_device_credentials(user_id=user_id, client_id=client_id, cred_type=credentials_type))
+    print(client.get_device_credentials(fields=fields, include_fields=include_fields, user_id=user_id, client_id=client_id, cred_type=credentials_type))
 
 
 @device_credentials.command()
