@@ -1,4 +1,6 @@
 include LICENSE
 include README.rst
+include auth0_client/menu/datafiles/*
+include auth0_client/menu/datafiles/scripts/*
 
 

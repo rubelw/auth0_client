@@ -17,6 +17,8 @@ def administration():
 
 administration.help = highlight(administration.help, ['Create:', 'Delete:', 'Update:'], 'green')
 
+
+
 @administration.command()
 @click.option('--ini', '-i', help='INI file with needed information', required=True)
 @click.option('--debug', help='Turn on debugging', required=False, is_flag=True)

@@ -1,0 +1,17 @@
+# Common constants used by setup scripts
+
+export APP_DIR=~/.auth0_client
+export SCRIPT_DIR="$(dirname $0)/.."
+export SOURCE_DIR="$SCRIPT_DIR/../../.."
+export BASH_STARTUP=~/.bashrc
+
+export RED='\033[0;31;29m'
+export YELLOW='\033[0;33;29m'
+export GREEN='\033[0;32;29m'
+export CYAN='\033[0;36;29m'
+export BLUE='\033[0;34;29m'
+export NOCOLOR='\033[0m'
+
+function printc(){
+    printf "%b%b${NOCOLOR}\n" "$@"
+}

@@ -1,0 +1,65 @@
+Main Menu:
+  - Blacklists:
+    - List Blacklisted Tokens:
+      - eval "list_blacklisted_tokens.py"
+  - Client Grants:
+    - List Client Grants:
+      - eval "list_client_grants.py"
+  - Clients:
+    - List APIs:
+      - eval "list_apis.py"
+  - Connections:
+    - List All Connections:
+      - eval "list_all_connections.py"
+  - Custom Domains:
+    - Get Custom Domain Configurations:
+      - eval "list_domain_configuration.py"
+  - Device Credentials:
+    - List Device Credentials:
+      - eval "list_device_credentials.py"
+  - Emails:
+    - List Email Templates:
+      - eval "list_email_templates.py"
+    - List Email Providers:
+      - eval "list_email_providers.py"
+  - Grants:
+    - List Grants:
+      - eval "list_grants.py"
+  - Guardian:
+    - List Factors and Statuses:
+      - eval "list_factors_and_statuses.py"
+  - Jobs:
+    - Get A Job:
+      - eval "get_a_job.py"
+  - Logs:
+    - Search Log Events:
+      - eval "search_log_events.py"
+  - Resource Servers:
+    - List Resource Servers:
+      - eval "list_resource_servers.py"
+  - Rules:
+    - List Rules:
+      - eval "list_rules.py"
+  - Rules Configs:
+    - List Rules Configs:
+      - eval "list_rules_configs.py"
+  - States:
+    - Get Active User Count:
+      - eval "get_active_user_count.py"
+  - Tenants:
+    - Get Tenant Settings:
+      - eval "get_tenant_settings.py"
+  - Tickets:
+    - Create Email Verification Ticket:
+      - eval "create_email_verification_ticket.py"
+  - User Blocks:
+    - List User Blocks By Identifier:
+      - eval "list_user_blocks_by_identifier.py"
+  - Users:
+    - Search Users:
+      - eval "search_users.py"
+
+
+meta:
+  env:
+    PROFILE: none

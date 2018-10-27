@@ -4,6 +4,10 @@ Features
 ========
 python click program for auth0
 
+There is the normal click program called auth-client, for interating with the api.
+
+The is also and administration program called auth-menu for administering Auth0 from the command line.
+
 Installation
 ============
 auth0_client is on PyPI so all you need is:
@@ -18,7 +22,7 @@ Demonstration
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/rubelw/auth0_client/blob/master/images/demo.gif"><img src="https://github.com/rubelw/auth0_client/raw/master/images/demo.gif" alt="Auth0_Client tutorial" style="max-width:100%;"></a></p>
 
 
-Example
+Example for auth-client
 =======
 Getting help
 
@@ -85,8 +89,52 @@ Add the following to your ~/.bash_profile
       eval "$(_AUTH_CLIENT_COMPLETE=source auth-client)"
 ```
 
+Example for auth-menu
+=====================
+
+``` (.sourceCode .console
+
+Host: Williams-MacBook-Pro.local                                  User: rubelw
+==============================================================================
+  Main Menu
+------------------------------------------------------------------------------
+  [1] | Blacklists
+  [2] | Client Grants
+  [3] | Clients
+  [4] | Connections
+  [5] | Custom Domains
+  [6] | Device Credentials
+  [7] | Emails
+  [8] | Grants
+  [9] | Guardian
+  [10] | Jobs
+  [11] | Logs
+  [12] | Resource Servers
+  [13] | Rules
+  [14] | Rules Configs
+  [15] | States
+  [16] | Tenants
+  [17] | Tickets
+  [18] | User Blocks
+  [19] | Users
+------+-----------------------------------------------------------------------
+  [0] | Quit
+==============================================================================
+Press menu number (0-19) [ENTER]: 
 
 
+Host: Williams-MacBook-Pro.local                                  User: rubelw
+==============================================================================
+  Main Menu > Client Grants
+------------------------------------------------------------------------------
+  [1] | List Client Grants
+------+-----------------------------------------------------------------------
+  [0] | Return to Main Menu
+==============================================================================
+Press menu number (0-1) [ENTER]: 
+
+
+```
 Example Ini file
 ================
 
