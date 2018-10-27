@@ -48,7 +48,7 @@ def search_log_events(
         from_id=from_param,
         take=take,
         query=query
-    )
+    ))
 
 @logs.command()
 @click.option('--ini', '-i', help='INI file with needed information', required=True)

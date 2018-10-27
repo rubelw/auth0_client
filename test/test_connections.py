@@ -27,7 +27,7 @@ class TestCustomDomains(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.all')
+    @patch('auth0_client.v3.management.connections.Connections.all')
     def test_get_all_connections(self, connections, exit):
         connections.return_value='123'
 
@@ -50,7 +50,7 @@ class TestCustomDomains(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.get')
+    @patch('auth0_client.v3.management.connections.Connections.get')
     def test_get_a_connection(self, connections, exit):
         connections.return_value='123'
 
@@ -73,7 +73,7 @@ class TestCustomDomains(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete_user_by_email')
+    @patch('auth0_client.v3.management.connections.Connections.delete_user_by_email')
     def test_delete_a_connection_user(self, connections, exit):
         connections.return_value='123'
 
@@ -96,7 +96,7 @@ class TestCustomDomains(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.update')
+    @patch('auth0_client.v3.management.connections.Connections.update')
     def test_update_a_connection(self, connections, exit):
         connections.return_value='123'
 
@@ -120,7 +120,7 @@ class TestCustomDomains(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.connections.Connections.delete')
+    @patch('auth0_client.v3.management.connections.Connections.delete')
     def test_delete_a_connection_user(self, connections, exit):
         connections.return_value='123'
 

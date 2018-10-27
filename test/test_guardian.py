@@ -27,7 +27,7 @@ class TestGuardian(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.guardian.Guardian.all_factors')
+    @patch('auth0_client.v3.management.guardian.Guardian.all_factors')
     def test_get_a_list_of_factors_and_statuses(self, guardian, exit):
         guardian.return_value='123'
 
@@ -49,7 +49,7 @@ class TestGuardian(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.guardian.Guardian.get_enrollment')
+    @patch('auth0_client.v3.management.guardian.Guardian.get_enrollment')
     def test_get_a_guardian_enrollment(self, guardian, exit):
         guardian.return_value='123'
 
@@ -72,7 +72,7 @@ class TestGuardian(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.guardian.Guardian.delete_enrollment')
+    @patch('auth0_client.v3.management.guardian.Guardian.delete_enrollment')
     def test_delete_a_guardian_enrollment(self, guardian, exit):
         guardian.return_value='123'
 
@@ -94,7 +94,7 @@ class TestGuardian(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.guardian.Guardian.get_templates')
+    @patch('auth0_client.v3.management.guardian.Guardian.get_templates')
     def test_get_enrollment_and_verification_templates(self, guardian, exit):
         guardian.return_value='123'
 
@@ -117,7 +117,7 @@ class TestGuardian(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.guardian.Guardian.update_templates')
+    @patch('auth0_client.v3.management.guardian.Guardian.update_templates')
     def test_update_enrollment_and_verification_templates(self, guardian, exit):
         guardian.return_value='123'
 
@@ -140,7 +140,7 @@ class TestGuardian(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.guardian.Guardian.get_factor_providers')
+    @patch('auth0_client.v3.management.guardian.Guardian.get_factor_providers')
     def test_get_guardian_sns_factor_provider_configuration(self, guardian, exit):
         guardian.return_value='123'
 
@@ -162,7 +162,7 @@ class TestGuardian(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.guardian.Guardian.get_factor_providers')
+    @patch('auth0_client.v3.management.guardian.Guardian.get_factor_providers')
     def test_get_guardian_twilio_factor_provider_configuration(self, guardian, exit):
         guardian.return_value='123'
 
@@ -183,7 +183,7 @@ class TestGuardian(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.guardian.Guardian.update_factor_providers')
+    @patch('auth0_client.v3.management.guardian.Guardian.update_factor_providers')
     def test_update_guardians_twilio_sms_factor_provider(self, guardian, exit):
         guardian.return_value='123'
 
@@ -206,7 +206,7 @@ class TestGuardian(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.guardian.Guardian.create_enrollment_ticket')
+    @patch('auth0_client.v3.management.guardian.Guardian.create_enrollment_ticket')
     def test_create_a_guardian_enrollment_ticket(self, guardian, exit):
         guardian.return_value='123'
 
@@ -229,7 +229,7 @@ class TestGuardian(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.guardian.Guardian.update_factor_providers')
+    @patch('auth0_client.v3.management.guardian.Guardian.update_factor_providers')
     def test_update_guardian_factor(self, guardian, exit):
         guardian.return_value='123'
 

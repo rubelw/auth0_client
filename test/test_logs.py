@@ -27,7 +27,7 @@ class TestLogs(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.logs.Logs.get')
+    @patch('auth0_client.v3.management.logs.Logs.get')
     def test_get_log_event_by_id(self, logs, exit):
         logs.return_value='123'
 
@@ -49,7 +49,7 @@ class TestLogs(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.logs.Logs.search')
+    @patch('auth0_client.v3.management.logs.Logs.search')
     def test_search_log_events(self, logs, exit):
         logs.return_value='123'
 

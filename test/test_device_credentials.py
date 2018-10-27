@@ -27,7 +27,7 @@ class TestDeviceCredentials(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.device_credentials.DeviceCredentials.get')
+    @patch('auth0_client.v3.management.device_credentials.DeviceCredentials.get')
     def test_list_device_credentials(self, device, exit):
         device.return_value='123'
 
@@ -53,7 +53,7 @@ class TestDeviceCredentials(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.device_credentials.DeviceCredentials.create')
+    @patch('auth0_client.v3.management.device_credentials.DeviceCredentials.create')
     def test_create_a_device_public_key(self, device, exit):
         device.return_value='123'
 
@@ -77,7 +77,7 @@ class TestDeviceCredentials(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.device_credentials.DeviceCredentials.delete')
+    @patch('auth0_client.v3.management.device_credentials.DeviceCredentials.delete')
     def test_delete_a_device_credential(self, device, exit):
         device.return_value='123'
 

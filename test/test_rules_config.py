@@ -27,7 +27,7 @@ class TestRulesConfig(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.rules_configs.RulesConfigs.all')
+    @patch('auth0_client.v3.management.rules_configs.RulesConfigs.all')
     def test_list_config_variable_keys_for_rules(self, rules, exit):
         rules.return_value='123'
 
@@ -48,7 +48,7 @@ class TestRulesConfig(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.rules_configs.RulesConfigs.remove')
+    @patch('auth0_client.v3.management.rules_configs.RulesConfigs.remove')
     def test_remove_rules_config_for_given_key(self, rules, exit):
         rules.return_value='123'
 
@@ -70,7 +70,7 @@ class TestRulesConfig(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.rules_configs.RulesConfigs.set_rule_for_key')
+    @patch('auth0_client.v3.management.rules_configs.RulesConfigs.set_rule_for_key')
     def test_set_the_rules_config_for_a_given_key(self, rules, exit):
         rules.return_value='123'
 

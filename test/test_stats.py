@@ -27,7 +27,7 @@ class TestStats(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.stats.Stats.active_users')
+    @patch('auth0_client.v3.management.stats.Stats.active_users')
     def test_get_active_users_count(self, stats, exit):
         stats.return_value='123'
 
@@ -48,7 +48,7 @@ class TestStats(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.stats.Stats.daily_stats')
+    @patch('auth0_client.v3.management.stats.Stats.daily_stats')
     def test_get_daily_stats(self, stats, exit):
         stats.return_value='123'
 

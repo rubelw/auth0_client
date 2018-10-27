@@ -27,7 +27,7 @@ class TestRules(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.rules.Rules.all')
+    @patch('auth0_client.v3.management.rules.Rules.all')
     def test_get_all_rules(self, rules, exit):
         rules.return_value='123'
 
@@ -49,7 +49,7 @@ class TestRules(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.rules.Rules.create')
+    @patch('auth0_client.v3.management.rules.Rules.create')
     def test_create_a_rule(self, rules, exit):
         rules.return_value='123'
 
@@ -72,7 +72,7 @@ class TestRules(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.rules.Rules.get')
+    @patch('auth0_client.v3.management.rules.Rules.get')
     def test_get_rule_by_id(self, rules, exit):
         rules.return_value='123'
 
@@ -95,7 +95,7 @@ class TestRules(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.rules.Rules.delete')
+    @patch('auth0_client.v3.management.rules.Rules.delete')
     def test_delete_rule(self, rules, exit):
         rules.return_value='123'
 
@@ -117,7 +117,7 @@ class TestRules(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.rules.Rules.update')
+    @patch('auth0_client.v3.management.rules.Rules.update')
     def test_delete_rule(self, rules, exit):
         rules.return_value='123'
 

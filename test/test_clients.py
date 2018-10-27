@@ -27,7 +27,7 @@ class TestClients(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.clients.Clients.all')
+    @patch('auth0_client.v3.management.clients.Clients.all')
     def test_get_all_client_grants(self, clients, exit):
         clients.return_value='123'
 
@@ -50,7 +50,7 @@ class TestClients(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.clients.Clients.get')
+    @patch('auth0_client.v3.management.clients.Clients.get')
     def test_get_a_client_application(self, clients, exit):
         clients.return_value='123'
 
@@ -73,7 +73,7 @@ class TestClients(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.clients.Clients.create')
+    @patch('auth0_client.v3.management.clients.Clients.create')
     def test_create_a_client_application(self, clients, exit):
         clients.return_value='123'
 
@@ -97,7 +97,7 @@ class TestClients(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.clients.Clients.delete')
+    @patch('auth0_client.v3.management.clients.Clients.delete')
     def test_delete_a_client_application(self, clients, exit):
         clients.return_value='123'
 
@@ -119,7 +119,7 @@ class TestClients(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.clients.Clients.update')
+    @patch('auth0_client.v3.management.clients.Clients.update')
     def test_update_a_client_application(self, clients, exit):
         clients.return_value='123'
 

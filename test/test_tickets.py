@@ -27,7 +27,7 @@ class TestTickets(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.tickets.Tickets.create_email_verification')
+    @patch('auth0_client.v3.management.tickets.Tickets.create_email_verification')
     def test_create_an_email_verification_ticket(self, stats, exit):
         stats.return_value='123'
 
@@ -50,7 +50,7 @@ class TestTickets(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.tickets.Tickets.create_pswd_change')
+    @patch('auth0_client.v3.management.tickets.Tickets.create_pswd_change')
     def test_create_a_password_change_ticket(self, stats, exit):
         stats.return_value='123'
 

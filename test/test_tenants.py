@@ -27,7 +27,7 @@ class TestTenants(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.tenants.Tenants.get')
+    @patch('auth0_client.v3.management.tenants.Tenants.get')
     def test_get_tenant_settings(self, stats, exit):
         stats.return_value='123'
 
@@ -48,7 +48,7 @@ class TestTenants(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.tenants.Tenants.update')
+    @patch('auth0_client.v3.management.tenants.Tenants.update')
     def test_update_tenant_settings(self, stats, exit):
         stats.return_value='123'
 

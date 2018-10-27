@@ -27,7 +27,7 @@ class TestResourceServers(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.resource_servers.ResourceServers.get_all')
+    @patch('auth0_client.v3.management.resource_servers.ResourceServers.get_all')
     def test_get_all_resource_servers(self, servers, exit):
         servers.return_value='123'
 
@@ -48,7 +48,7 @@ class TestResourceServers(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.resource_servers.ResourceServers.create')
+    @patch('auth0_client.v3.management.resource_servers.ResourceServers.create')
     def test_create_resource_server(self, servers, exit):
         servers.return_value='123'
 
@@ -71,7 +71,7 @@ class TestResourceServers(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.resource_servers.ResourceServers.get')
+    @patch('auth0_client.v3.management.resource_servers.ResourceServers.get')
     def test_get_resource_server_by_id(self, servers, exit):
         servers.return_value='123'
 
@@ -93,7 +93,7 @@ class TestResourceServers(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.resource_servers.ResourceServers.delete')
+    @patch('auth0_client.v3.management.resource_servers.ResourceServers.delete')
     def test_delete_resource_server(self, servers, exit):
         servers.return_value='123'
 
@@ -114,7 +114,7 @@ class TestResourceServers(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.resource_servers.ResourceServers.update')
+    @patch('auth0_client.v3.management.resource_servers.ResourceServers.update')
     def test_update_resource_server(self, servers, exit):
         servers.return_value='123'
 

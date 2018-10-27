@@ -27,7 +27,7 @@ class TestBlacklist(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.custom_domains.CustomDomains.get_all')
+    @patch('auth0_client.v3.management.custom_domains.CustomDomains.get_all')
     def test_get_all_connections(self, domains, exit):
         domains.return_value='123'
 
@@ -48,7 +48,7 @@ class TestBlacklist(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.custom_domains.CustomDomains.create_new')
+    @patch('auth0_client.v3.management.custom_domains.CustomDomains.create_new')
     def test_configure_new_custom_domain(self, domains, exit):
         domains.return_value='123'
 
@@ -71,7 +71,7 @@ class TestBlacklist(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.custom_domains.CustomDomains.get_domain_by_id')
+    @patch('auth0_client.v3.management.custom_domains.CustomDomains.get_domain_by_id')
     def test_get_custom_domain_configuration(self, domains, exit):
         domains.return_value = '123'
 
@@ -90,7 +90,7 @@ class TestBlacklist(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.custom_domains.CustomDomains.delete')
+    @patch('auth0_client.v3.management.custom_domains.CustomDomains.delete')
     def test_delete_custom_domain_configuration(self, domains, exit):
         domains.return_value = '123'
 
@@ -110,7 +110,7 @@ class TestBlacklist(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.custom_domains.CustomDomains.verify')
+    @patch('auth0_client.v3.management.custom_domains.CustomDomains.verify')
     def test_verify_a_custom_domain(self, domains, exit):
         domains.return_value = '123'
 

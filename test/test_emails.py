@@ -27,7 +27,7 @@ class TestEmails(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.emails.Emails.get')
+    @patch('auth0_client.v3.management.emails.Emails.get')
     def test_get_the_email_provider(self, emails, exit):
         emails.return_value='123'
 
@@ -51,7 +51,7 @@ class TestEmails(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.emails.Emails.delete')
+    @patch('auth0_client.v3.management.emails.Emails.delete')
     def test_delete_the_email_provider(self, emails, exit):
         emails.return_value='123'
 
@@ -72,7 +72,7 @@ class TestEmails(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.emails.Emails.update')
+    @patch('auth0_client.v3.management.emails.Emails.update')
     def test_update_the_email_provider(self, emails, exit):
         emails.return_value='123'
 
@@ -95,7 +95,7 @@ class TestEmails(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.emails.Emails.config')
+    @patch('auth0_client.v3.management.emails.Emails.config')
     def test_configure_the_email_provider(self, emails, exit):
         emails.return_value='123'
 

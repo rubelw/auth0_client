@@ -27,7 +27,7 @@ class TestBlacklist(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.blacklists.Blacklists.get')
+    @patch('auth0_client.v3.management.blacklists.Blacklists.get')
     def test_get_blacklist(self, blacklist, exit):
         blacklist.return_value='123'
 
@@ -49,7 +49,7 @@ class TestBlacklist(unittest.TestCase):
         self.assertEqual('"123"', str(real_results))
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.blacklists.Blacklists.create')
+    @patch('auth0_client.v3.management.blacklists.Blacklists.create')
     def test_blacklist_a_token(self, blacklist, exit):
         blacklist.return_value='123'
 

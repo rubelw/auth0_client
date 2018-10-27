@@ -27,7 +27,7 @@ class TestJobs(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.jobs.Jobs.get')
+    @patch('auth0_client.v3.management.jobs.Jobs.get')
     def test_get_a_job(self, jobs, exit):
         jobs.return_value='123'
 
@@ -49,7 +49,7 @@ class TestJobs(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.jobs.Jobs.get_failed_job')
+    @patch('auth0_client.v3.management.jobs.Jobs.get_failed_job')
     def test_get_failed_job_error_details(self, jobs, exit):
         jobs.return_value='123'
 
@@ -71,7 +71,7 @@ class TestJobs(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.jobs.Jobs.get_job_results')
+    @patch('auth0_client.v3.management.jobs.Jobs.get_job_results')
     def test_get_results_of_a_job(self, jobs, exit):
         jobs.return_value='123'
 
@@ -93,7 +93,7 @@ class TestJobs(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.jobs.Jobs.export_users')
+    @patch('auth0_client.v3.management.jobs.Jobs.export_users')
     def test_create_job_to_export_users(self, jobs, exit):
         jobs.return_value='123'
 
@@ -116,7 +116,7 @@ class TestJobs(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.jobs.Jobs.import_users')
+    @patch('auth0_client.v3.management.jobs.Jobs.import_users')
     def test_create_job_to_import_users(self, jobs, exit):
         jobs.return_value='123'
 
@@ -142,7 +142,7 @@ class TestJobs(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.jobs.Jobs.send_verification_email')
+    @patch('auth0_client.v3.management.jobs.Jobs.send_verification_email')
     def test_send_a_verify_email_address_email(self, jobs, exit):
         jobs.return_value='123'
 

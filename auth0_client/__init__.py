@@ -7,6 +7,6 @@ __version__ = pkg_resources.get_distribution('auth0_client').version
 __all__ = [
 ]
 __title__ = 'auth0_client'
-__version__ = '0.0.8'
+__version__ = '0.5.0'
 __author__ = 'Will Rubel'
 __author_email__ = 'willrubel@gmail.com'

@@ -1,0 +1,90 @@
+import unittest
+import mock
+from auth0_client.v3.management.jobs import Jobs
+
+
+class TestJobs(unittest.TestCase):
+
+    @mock.patch('auth0_client.v3.management.jobs.RestClient')
+    def test_get(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        j = Jobs(domain='domain', token='jwttoken')
+        j.get('an-id')
+
+        mock_instance.get.assert_called_with(
+            'https://domain/api/v2/jobs/an-id',
+        )
+
+    @mock.patch('auth0_client.v3.management.jobs.RestClient')
+    def get_failed_job(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        j = Jobs(domain='domain', token='jwttoken')
+        j.get('an-id')
+
+        mock_instance.get.assert_called_with(
+            'https://domain/api/v2/jobs/an-id/errors',
+        )
+
+    @mock.patch('auth0_client.v3.management.jobs.RestClient')
+    def get_job_results(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        j = Jobs(domain='domain', token='jwttoken')
+        j.get('an-id')
+
+        mock_instance.get.assert_called_with(
+            'https://domain/api/v2/jobs/an-id/results',
+        )
+
+    @mock.patch('auth0_client.v3.management.jobs.RestClient')
+    def test_export_users(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        j = Jobs(domain='domain', token='jwttoken')
+        j.export_users({'connection_id': 'cxn_id', 'format': 'json'})
+
+        mock_instance.post.assert_called_with(
+            'https://domain/api/v2/jobs/users-exports',
+            data={'connection_id': 'cxn_id', 'format': 'json'}
+        )
+
+    @mock.patch('auth0_client.v3.management.jobs.RestClient')
+    def test_import_users(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        j = Jobs(domain='domain', token='jwttoken')
+        j.import_users(connection_id='1234', file_obj={})
+
+        mock_instance.file_post.assert_called_with(
+            'https://domain/api/v2/jobs/users-imports',
+            data={'connection_id': '1234', 'upsert': 'false'},
+            files={'users': {}}
+        )
+
+        j.import_users(connection_id='1234', file_obj={}, upsert=True)
+        mock_instance.file_post.assert_called_with(
+            'https://domain/api/v2/jobs/users-imports',
+            data={'connection_id': '1234', 'upsert': 'true'},
+            files={'users': {}}
+        )
+
+        j.import_users(connection_id='1234', file_obj={}, upsert=False)
+        mock_instance.file_post.assert_called_with(
+            'https://domain/api/v2/jobs/users-imports',
+            data={'connection_id': '1234', 'upsert': 'false'},
+            files={'users': {}}
+        )
+
+    @mock.patch('auth0_client.v3.management.jobs.RestClient')
+    def test_verification_email(self, mock_rc):
+        mock_instance = mock_rc.return_value
+
+        j = Jobs(domain='domain', token='jwttoken')
+        j.send_verification_email({'a': 'b', 'c': 'd'})
+
+        mock_instance.post.assert_called_with(
+            'https://domain/api/v2/jobs/verification-email',
+            data={'a': 'b', 'c': 'd'}
+        )

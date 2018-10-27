@@ -27,7 +27,7 @@ class TestUserBlocks(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.user_blocks.UserBlocks.get_by_identifier')
+    @patch('auth0_client.v3.management.user_blocks.UserBlocks.get_by_identifier')
     def test_get_blocks_by_identifier(self, users, exit):
         users.return_value='123'
 
@@ -50,7 +50,7 @@ class TestUserBlocks(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.user_blocks.UserBlocks.unblock_by_identifier')
+    @patch('auth0_client.v3.management.user_blocks.UserBlocks.unblock_by_identifier')
     def test_unblock_by_identifier(self, users, exit):
         users.return_value='123'
 
@@ -73,7 +73,7 @@ class TestUserBlocks(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.user_blocks.UserBlocks.get')
+    @patch('auth0_client.v3.management.user_blocks.UserBlocks.get')
     def test_get_a_users_blocks(self, users, exit):
         users.return_value='123'
 
@@ -95,7 +95,7 @@ class TestUserBlocks(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.user_blocks.UserBlocks.unblock')
+    @patch('auth0_client.v3.management.user_blocks.UserBlocks.unblock')
     def test_unblock_a_user(self, users, exit):
         users.return_value='123'
 

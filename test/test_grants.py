@@ -27,7 +27,7 @@ class TestGrants(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.grants.Grants.get_all')
+    @patch('auth0_client.v3.management.grants.Grants.get_all')
     def test_get_grants(self, grants, exit):
         grants.return_value='123'
 
@@ -51,7 +51,7 @@ class TestGrants(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.grants.Grants.delete')
+    @patch('auth0_client.v3.management.grants.Grants.delete')
     def test_delete_a_grant(self, grants, exit):
         grants.return_value='123'
 

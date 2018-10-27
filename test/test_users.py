@@ -27,7 +27,7 @@ class TestUsers(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.list')
+    @patch('auth0_client.v3.management.users.Users.list')
     def test_list_or_search_users(self, users, exit):
         users.return_value={'total':1}
 
@@ -47,9 +47,9 @@ class TestUsers(unittest.TestCase):
 
         self.assertEqual('[\n]', real_results)
 
-    @patch('auth0.v3.management.connections.Connections.all')
+    @patch('auth0_client.v3.management.connections.Connections.all')
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.create')
+    @patch('auth0_client.v3.management.users.Users.create')
     def test_create_a_user(self, users, exit, connections):
         users.return_value='123'
         connections.return_value=json.loads('[{"name": "My connection","options": {},"id": "con_0000000000000001","strategy": "auth0","realms": [  ""],"is_domain_connection": false,"metadata": {}}]')
@@ -73,7 +73,7 @@ class TestUsers(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.get')
+    @patch('auth0_client.v3.management.users.Users.get')
     def test_get_a_user(self, users, exit):
         users.return_value='123'
 
@@ -96,7 +96,7 @@ class TestUsers(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.delete')
+    @patch('auth0_client.v3.management.users.Users.delete')
     def test_delete_a_user(self, users, exit):
         users.return_value='123'
 
@@ -116,9 +116,9 @@ class TestUsers(unittest.TestCase):
 
         self.assertEqual('"123"', real_results)
 
-    @patch('auth0.v3.management.connections.Connections.all')
+    @patch('auth0_client.v3.management.connections.Connections.all')
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.update')
+    @patch('auth0_client.v3.management.users.Users.update')
     def test_update_a_user(self, users, exit, connections):
         users.return_value='123'
         connections.return_value=json.loads('[{"name": "My connection","options": {},"id": "con_0000000000000001","strategy": "auth0","realms": [  ""],"is_domain_connection": false,"metadata": {}}]')
@@ -142,7 +142,7 @@ class TestUsers(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.get_guardian_enrollments')
+    @patch('auth0_client.v3.management.users.Users.get_guardian_enrollments')
     def test_get_a_list_of_guardian_enrollments(self, users, exit):
         users.return_value='123'
 
@@ -163,7 +163,7 @@ class TestUsers(unittest.TestCase):
         self.assertEqual('"123"', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.get_log_events')
+    @patch('auth0_client.v3.management.users.Users.get_log_events')
     def test_get_users_log_events(self, users, exit):
         users.return_value='123'
 
@@ -184,7 +184,7 @@ class TestUsers(unittest.TestCase):
         self.assertEqual('[\n\t"1",\n\t"2",\n\t"3"\n]', real_results)
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.delete_multifactor')
+    @patch('auth0_client.v3.management.users.Users.delete_multifactor')
     def test_delete_a_users_multifactor_provider(self, users, exit):
         users.return_value='123'
 
@@ -207,7 +207,7 @@ class TestUsers(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.unlink_user_account')
+    @patch('auth0_client.v3.management.users.Users.unlink_user_account')
     def test_unlink_a_user_identity(self, users, exit):
         users.return_value='123'
 
@@ -231,7 +231,7 @@ class TestUsers(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.regenerate_recovery_code')
+    @patch('auth0_client.v3.management.users.Users.regenerate_recovery_code')
     def test_generate_new_guardian_recovery_code(self, users, exit):
         users.return_value='123'
 
@@ -253,7 +253,7 @@ class TestUsers(unittest.TestCase):
 
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.users.Users.link_user_account')
+    @patch('auth0_client.v3.management.users.Users.link_user_account')
     def test_link_a_user_account(self, users, exit):
         users.return_value='123'
 

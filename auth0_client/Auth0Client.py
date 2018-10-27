@@ -5,28 +5,28 @@ import sys
 import math
 from time import strftime
 from datetime import date, timedelta, datetime
-from auth0.v3.authentication import GetToken
-from auth0.v3.management import Users
-from auth0.v3.management import ClientGrants
-from auth0.v3.management import Clients
-from auth0.v3.management import Connections
-from auth0.v3.management import Tenants
-from auth0.v3.management import Blacklists
-from auth0.v3.management import UserBlocks
-from auth0.v3.management import UsersByEmail
-from auth0.v3.management import Stats
-from auth0.v3.management import Guardian
-from auth0.v3.management import Rules
-from auth0.v3.management import RulesConfigs
-from auth0.v3.management import ResourceServers
-from auth0.v3.management import Grants
-from auth0.v3.management import DeviceCredentials
-from auth0.v3.management import CustomDomains
-from auth0.v3.management import EmailTemplates
-from auth0.v3.management import Jobs
-from auth0.v3.management import Tickets
-from auth0.v3.management import Emails
-from auth0.v3.management import Logs
+from auth0_client.v3.authentication import GetToken
+from auth0_client.v3.management import Users
+from auth0_client.v3.management import ClientGrants
+from auth0_client.v3.management import Clients
+from auth0_client.v3.management import Connections
+from auth0_client.v3.management import Tenants
+from auth0_client.v3.management import Blacklists
+from auth0_client.v3.management import UserBlocks
+from auth0_client.v3.management import UsersByEmail
+from auth0_client.v3.management import Stats
+from auth0_client.v3.management import Guardian
+from auth0_client.v3.management import Rules
+from auth0_client.v3.management import RulesConfigs
+from auth0_client.v3.management import ResourceServers
+from auth0_client.v3.management import Grants
+from auth0_client.v3.management import DeviceCredentials
+from auth0_client.v3.management import CustomDomains
+from auth0_client.v3.management import EmailTemplates
+from auth0_client.v3.management import Jobs
+from auth0_client.v3.management import Tickets
+from auth0_client.v3.management import Emails
+from auth0_client.v3.management import Logs
 
 
 

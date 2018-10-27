@@ -27,7 +27,7 @@ class TestClientGrants(unittest.TestCase):
     Test command class
     """
     @patch('sys.exit')
-    @patch('auth0.v3.management.client_grants.ClientGrants.all')
+    @patch('auth0_client.v3.management.client_grants.ClientGrants.all')
     def test_get_all_client_grants(self, grants, exit):
         grants.return_value='123'
 
@@ -49,7 +49,7 @@ class TestClientGrants(unittest.TestCase):
         self.assertEqual("['1', '2', '3']", str(json.loads(real_results)))
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.client_grants.ClientGrants.create')
+    @patch('auth0_client.v3.management.client_grants.ClientGrants.create')
     def test_create_a_client_grant(self, grants, exit):
         grants.return_value='123'
 
@@ -72,7 +72,7 @@ class TestClientGrants(unittest.TestCase):
         self.assertEqual('123', str(json.loads(real_results)))
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.client_grants.ClientGrants.delete')
+    @patch('auth0_client.v3.management.client_grants.ClientGrants.delete')
     def test_delete_a_client_grant(self, grants, exit):
         grants.return_value='123'
 
@@ -94,7 +94,7 @@ class TestClientGrants(unittest.TestCase):
         self.assertEqual('123', str(json.loads(real_results)))
 
     @patch('sys.exit')
-    @patch('auth0.v3.management.client_grants.ClientGrants.update')
+    @patch('auth0_client.v3.management.client_grants.ClientGrants.update')
     def test_update_a_client_grant(self, grants, exit):
         grants.return_value='123'
 

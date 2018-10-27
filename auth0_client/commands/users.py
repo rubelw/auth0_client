@@ -131,8 +131,8 @@ def delete_a_users_multifactor_provider(
 @users.command()
 @click.option('--ini', '-i', help='INI file with needed information', required=True)
 @click.option('--id', '-d', help='user id', required=True)
-@click.option('--provider', '-p', help='The identity provider of the secondary linked account.  (Ex: 'google-oauth2' in google-oauth2|123456789081523216417)', required=True)
-@click.option('--user-id', '-i', help='The unique identifier of the secondary linked account. (Only the id after the '|' pipe. Ex: '123456789081523216417' in google-oauth2|123456789081523216417)', required=True)
+@click.option('--provider', '-p', help='The identity provider of the secondary linked account.  (Ex: \'google-oauth2\' in google-oauth2|123456789081523216417)', required=True)
+@click.option('--user-id', '-i', help='The unique identifier of the secondary linked account. (Only the id after the \'|\' pipe. Ex: \'123456789081523216417\' in google-oauth2|123456789081523216417)', required=True)
 @click.option('--debug', help='Turn on debugging', required=False, is_flag=True)
 def unlink_a_user_identity(
         ini,
