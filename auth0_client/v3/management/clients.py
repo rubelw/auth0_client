@@ -24,7 +24,7 @@ class Clients(object):
             return url + '/' + id
         return url
 
-    def all(self, fields=None, include_fields=True, page=None, per_page=None, extra_params=None):
+    def all(self, app_type=None, is_first_party=True, is_global=False, fields=None, include_fields=True, page=None, per_page=None, extra_params=None):
         """Retrieves a list of all the applications.
 
         Important: The client_secret and encryption_key attributes can only be
@@ -53,8 +53,10 @@ class Clients(object):
         params['fields'] = fields and ','.join(fields) or None
         params['include_fields'] = str(include_fields).lower()
         params['page'] = page
+        params['app_type'] = app_type or None
         params['per_page'] = per_page
-
+        params['is_global'] = str(is_global).lower()
+        params['is_first_party'] = str(is_first_party).lower()
         return self.client.get(self._url(), params=params)
 
     def create(self, body):

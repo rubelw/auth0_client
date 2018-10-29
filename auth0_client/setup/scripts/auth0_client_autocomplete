@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Seed bash autocompletion for auth0_client CLI
+_auth_client_completion() {
+    COMPREPLY=( $( env COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   _AUTH_CLIENT_COMPLETE=complete $1 ) )
+    return 0
+}
+
+complete -F _auth_client_completion -o default auth-client;

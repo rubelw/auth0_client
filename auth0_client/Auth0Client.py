@@ -3,7 +3,6 @@ import inspect
 import json
 import sys
 import math
-from time import strftime
 from datetime import date, timedelta, datetime
 from auth0_client.v3.authentication import GetToken
 from auth0_client.v3.management import Users
@@ -154,7 +153,7 @@ class Auth0Client:
     ##################
     # Clients
     ##################
-    def get_all_client_applications(self):
+    def get_all_client_applications(self, first_party=True, app_type=None, is_global=False):
         if self.debug:
             print('command - get_all_clients_applications'+lineno())
 
@@ -162,10 +161,10 @@ class Auth0Client:
         clients_per_page = 10
         clients = Clients(self.domain, self.token)
 
-        pages = math.ceil(len(clients.all()) / clients_per_page)
+        pages = math.ceil(len(clients.all(is_first_party=first_party, is_global=is_global, app_type=app_type)) / clients_per_page)
         for page in range(pages):
 
-            results = clients.all(page=page, per_page=clients_per_page)
+            results = clients.all(is_first_party=first_party, is_global=is_global, app_type=app_type, page=page, per_page=clients_per_page)
 
             for client in results:
                 client_data.append(client)
@@ -919,7 +918,7 @@ class Auth0Client:
     # Users By Email
     ##################
 
-    def user_by_email(self,email):
+    def user_by_email(self, email):
         if self.debug:
             print('command - user_by_email'+lineno())
 

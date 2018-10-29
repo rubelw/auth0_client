@@ -9,9 +9,13 @@ from auth0_client.menu.menu_helper.pretty import *
 try:
     users = {}
 
-    client = Auth0Client(auth_config())
-    results = client.active_users()
 
+    days = single_question('Enter the number of days since today which you want to search')
+
+    client = Auth0Client(auth_config())
+    results = client.daily_stats(days=days)
+
+    results=json.loads(results.replace('\t','').replace('\n',''))
     print(pretty(results))
 
 except (KeyboardInterrupt, SystemExit):

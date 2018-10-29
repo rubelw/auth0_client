@@ -8,16 +8,25 @@ from auth0_client.menu.menu_helper.pretty import *
 
 try:
 
+    enrollments = {}
+
+
     client = Auth0Client(auth_config())
-    results = client.get_all_rules()
 
-    if type(results) == type(str()):
-        results = json.loads(results)
+    types = ['totp','sms','push','email','recovery-code']
 
-    if results:
+    for my_type in types:
+        print(my_type)
+        results = client.get_a_guardian_enrollment(id=my_type)
+
         print(pretty(results))
+
+
+
     else:
-        print('No rules')
+        print('No users')
+
+
 
 
 

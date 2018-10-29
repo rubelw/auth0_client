@@ -5,6 +5,7 @@ from .connections import Connections
 from .device_credentials import DeviceCredentials
 from .emails import Emails
 from .email_templates import EmailTemplates
+from .grants import Grants
 from .guardian import Guardian
 from .jobs import Jobs
 from .logs import Logs
@@ -36,6 +37,7 @@ class Auth0(object):
         self.device_credentials = DeviceCredentials(domain, token)
         self.emails = Emails(domain, token)
         self.email_templates = EmailTemplates(domain, token)
+        self.grants = Grants(domain, token)
         self.guardian = Guardian(domain, token)
         self.jobs = Jobs(domain, token)
         self.logs = Logs(domain, token)

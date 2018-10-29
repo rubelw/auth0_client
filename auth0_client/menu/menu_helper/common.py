@@ -29,13 +29,30 @@ def yes_or_no(title):
 
     pattern = r'^[0-9]+$'
     while True:
-        ans = raw_input("Make A Choice: [ENTER]")
+        ans = input("Make A Choice: [ENTER]")
         if re.match(pattern, ans) is not None:
             if int(ans) in menu:
                 answer = menu[int(ans)][1]
                 break
 
     return answer
+
+
+def single_question(title):
+
+    print("\n")
+    print('#########################################')
+    print('## '+str(title))
+    print('#########################################')
+
+    while True:
+        ans = input("[ENTER]")
+        if ans is not None:
+            answer = ans
+            break
+
+    return answer
+
 
 
 def multiple_choice(title, list):
@@ -56,7 +73,7 @@ def multiple_choice(title, list):
 
     pattern = r'^[0-9]+$'
     while True:
-        ans = raw_input("Make A Choice: [ENTER]")
+        ans = input("Make A Choice: [ENTER]")
         if re.match(pattern, ans) is not None:
             if int(ans) in menu:
                 answer = menu[int(ans)]
@@ -223,7 +240,7 @@ def select_path(title, search_path):
 
     while True:
 
-        USER_RESPONSE = raw_input("Make a selection [ENTER] (Cntrl-C to exit):")
+        USER_RESPONSE = input("Make a selection [ENTER] (Cntrl-C to exit):")
         if int(USER_RESPONSE) in MENU:
             directory = MENU[int(USER_RESPONSE)][0]
             break
@@ -239,3 +256,14 @@ def read_ini_file_to_dictionary(filename):
 
     return confdict
 
+def auth_config():
+    home = expanduser("~")
+    inifile = str(home)+'/.auth0_client/auth0_client.ini'
+    my_config = read_ini_file_to_dictionary(inifile)
+
+    config_dict = {}
+    config_dict['domain'] = my_config['PARAMETERS']['domain']
+    config_dict['client_id'] = my_config['PARAMETERS']['id']
+    config_dict['client_secret'] = my_config['PARAMETERS']['secret']
+
+    return config_dict

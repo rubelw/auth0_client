@@ -7,13 +7,13 @@ from auth0_client.menu.menu_helper.pretty import *
 
 
 try:
+    users = {}
+
+    email = single_question('Enter email to search for.')
 
     client = Auth0Client(auth_config())
-    results = client.get_all_resource_servers()
-
-    if type(results) == type(str()):
-        results = json.loads(results)
-
+    results = client.user_by_email(email=email)
+    results = json.loads(results.replace('\t','').replace('\n',''))
     print(pretty(results))
 
 

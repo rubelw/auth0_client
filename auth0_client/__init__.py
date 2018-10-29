@@ -1,5 +1,4 @@
 from __future__ import absolute_import, division, print_function
-import pkg_resources
 from auth0_client.Auth0Client import Auth0Client #noqa
 
 try:
@@ -12,6 +11,6 @@ else:
 __all__ = [
 ]
 __title__ = 'auth0_client'
-__version__ = '0.6.0'
+__version__ = '0.6.1'
 __author__ = 'Will Rubel'
 __author_email__ = 'willrubel@gmail.com'

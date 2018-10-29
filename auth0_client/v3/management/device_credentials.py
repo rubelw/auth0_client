@@ -46,13 +46,23 @@ class DeviceCredentials(object):
         See: https://auth0.com/docs/api/management/v2#!/Device_Credentials/get_device_credentials
         """
 
-        params = {
-            'fields': fields and ','.join(fields) or None,
-            'include_fields': str(include_fields).lower(),
-            'user_id': user_id,
-            'client_id': client_id,
-            'type': type,
-        }
+        if ',' not in fields:
+            params = {
+                'fields': fields and ','.join(fields) or None,
+                'include_fields': str(include_fields).lower(),
+                'user_id': user_id,
+                'client_id': client_id,
+                'type': type,
+            }
+        else:
+            params = {
+                'fields': fields or None,
+                'include_fields': str(include_fields).lower(),
+                'user_id': user_id,
+                'client_id': client_id,
+                'type': type,
+            }
+
         return self.client.get(self._url(), params=params)
 
     def create(self, body):

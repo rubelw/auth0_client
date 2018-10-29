@@ -2,12 +2,14 @@ Main Menu:
   - Blacklists:
     - List Blacklisted Tokens:
       - eval "list_blacklisted_tokens.py"
+    - Blacklist A Token:
+      - eval "blacklist_a_token.py"
   - Client Grants:
     - List Client Grants:
       - eval "list_client_grants.py"
   - Clients:
-    - List APIs:
-      - eval "list_apis.py"
+    - List Client Applications:
+      - eval "list_clients.py"
   - Connections:
     - List All Connections:
       - eval "list_all_connections.py"
@@ -18,19 +20,48 @@ Main Menu:
     - List Device Credentials:
       - eval "list_device_credentials.py"
   - Emails:
-    - List Email Templates:
-      - eval "list_email_templates.py"
     - List Email Providers:
       - eval "list_email_providers.py"
+    - Delete Email Provider:
+      - eval "delete_email_provider.py"
+    - Update Email Provider:
+      - eval "update_email_provider.py"
+    - Configure Email Provider:
+      - eval "configure_email_provider.py"
+  - Email Templates:
+    - Get An Email Template:
+      - eval "get_an_email_template.py"
+    - Patch An Email Template:
+      - eval "patch_an_email_template.py"
+    - Update An Email Template:
+      - eval "update_an_email_template.py"
+    - Create An Eamil Template:
+      - eval "create_an_email_template.py"
   - Grants:
     - List Grants:
       - eval "list_grants.py"
   - Guardian:
+    - Guardian Enrollments:
+      - eval "list_guardian_enrollments.py"
     - List Factors and Statuses:
       - eval "list_factors_and_statuses.py"
+    - Create Guardian Enrollment Ticket:
+      - eval "create_guardian_enrollment_ticket.py"
+    - Update Guardian Factor:
+      - eval "update_guardian_factor.py"
   - Jobs:
     - Get A Job:
       - eval "get_a_job.py"
+    - Get Failed Job Error Details:
+      - eval "get_failed_job_error_details.py"
+    - Get Results Of A Job:
+      - eval "get_results_of_a_job.py"
+    - Create Job To Export Users:
+      - eval "create_job_to_export_users.py"
+    - Create Job To Import Users:
+      - eval "create_job_to_import_users.py"
+    - Send A Verify Email Address:
+      - eval "send_a_verify_email_address.py"
   - Logs:
     - Search Log Events:
       - eval "search_log_events.py"
@@ -41,11 +72,13 @@ Main Menu:
     - List Rules:
       - eval "list_rules.py"
   - Rules Configs:
-    - List Rules Configs:
-      - eval "list_rules_configs.py"
-  - States:
+    - List Config Variable Keys for Rules:
+      - eval "list_rules_configs_config_variable_keys.py"
+  - Stats:
     - Get Active User Count:
       - eval "get_active_user_count.py"
+    - Get Daily Stats:
+      - eval "get_daily_stats.py"
   - Tenants:
     - Get Tenant Settings:
       - eval "get_tenant_settings.py"
@@ -56,8 +89,10 @@ Main Menu:
     - List User Blocks By Identifier:
       - eval "list_user_blocks_by_identifier.py"
   - Users:
-    - Search Users:
-      - eval "search_users.py"
+    - List Users:
+      - eval "list_users.py"
+    - Search Users By Email:
+      - eval "search_users_by_email.py"
 
 
 meta:

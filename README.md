@@ -105,22 +105,24 @@ Host: Williams-MacBook-Pro.local                                  User: rubelw
   [5] | Custom Domains
   [6] | Device Credentials
   [7] | Emails
-  [8] | Grants
-  [9] | Guardian
-  [10] | Jobs
-  [11] | Logs
-  [12] | Resource Servers
-  [13] | Rules
-  [14] | Rules Configs
-  [15] | States
-  [16] | Tenants
-  [17] | Tickets
-  [18] | User Blocks
-  [19] | Users
+  [8] | Email Templates
+  [9] | Grants
+  [10] | Guardian
+  [11] | Jobs
+  [12] | Logs
+  [13] | Resource Servers
+  [14] | Rules
+  [15] | Rules Configs
+  [16] | Stats
+  [17] | Tenants
+  [18] | Tickets
+  [19] | User Blocks
+  [20] | Users
 ------+-----------------------------------------------------------------------
   [0] | Quit
 ==============================================================================
-Press menu number (0-19) [ENTER]: 
+Press menu number (0-20) [ENTER]: 
+
 
 
 Host: Williams-MacBook-Pro.local                                  User: rubelw

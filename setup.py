@@ -10,7 +10,14 @@ import sys
 from os import path
 from io import open
 
-BASH_SCRIPTS = [abspath('./auth0_client/setup/scripts/init_auth0_client_config.sh')]
+BASH_SCRIPTS = [
+    abspath('./auth0_client/setup/scripts/01_init_auth0_client_config.sh'),
+    abspath('./auth0_client/setup/scripts/02_setup_autocomplete.sh'),
+    abspath('./auth0_client/setup/scripts/03_update_auth0_client.sh'),
+    abspath('./auth0_client/setup/scripts/04_cleanup.sh'),
+    abspath('./auth0_client/setup/scripts/05_finish.sh')
+
+]
 
 
 class BashInstall(install):
@@ -33,7 +40,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 
 PREFIX = '/tmp/auth-menu'
-VERSION = '0.6.0'
+VERSION = '0.6.1'
 
 setup_requires = (
     ['pytest-runner'] if any(x in sys.argv for x in ('pytest', 'test', 'ptr')) else []
